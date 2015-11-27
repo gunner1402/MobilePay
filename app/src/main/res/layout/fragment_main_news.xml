@@ -1,0 +1,25 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/common_head"/>
+
+        <ListView
+            android:id="@+id/main_news_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/common_font_color_ffffff"
+            android:dividerHeight="2dip"
+            android:divider="@color/common_list_item_divide_bg"
+            android:listSelector="@drawable/common_list_item_selector"/>
+    </LinearLayout>
+    <include layout="@layout/common_waiting_anim" android:id="@+id/main_news_wait"/>
+    <include layout="@layout/common_network_error" android:id="@+id/main_news_network_error"/>
+</FrameLayout>
+
+

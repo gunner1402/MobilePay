@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_head"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/common_background_all_page"
+        android:orientation="vertical">
+
+        <TextView android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_content_margin_10"
+            android:layout_marginBottom="@dimen/common_content_margin_10"
+            android:layout_marginRight="@dimen/common_content_margin_15"
+            android:layout_marginLeft="@dimen/common_content_margin_15"
+            android:text="@string/order_details_id"
+            android:textColor="@color/common_font_color_000000"
+            android:textSize="@dimen/common_font_size_12"
+            android:gravity="center_vertical|right"/>
+        <EditText
+            android:id="@+id/capture_input_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/login_style_btn_height"
+            android:layout_marginTop="@dimen/common_content_margin_10"
+            android:layout_marginBottom="@dimen/common_content_margin_10"
+            android:layout_marginRight="@dimen/common_content_margin_50"
+            android:layout_marginLeft="@dimen/common_content_margin_50"
+            android:background="@drawable/common_input_bg"
+            android:hint="@string/capture_scan_text2_3"
+            android:textColor="@color/common_font_color_000000"
+            android:textSize="@dimen/common_font_size_16"
+            android:gravity="right|center_vertical"
+            android:paddingRight="@dimen/common_content_margin_5"
+            android:singleLine="true"
+            android:inputType="number"/>
+        <TextView android:layout_width="match_parent"
+            android:layout_height="@dimen/login_style_btn_height"
+            android:layout_marginTop="@dimen/common_content_margin_10"
+            android:layout_marginBottom="@dimen/common_content_margin_10"
+            android:layout_marginRight="@dimen/common_content_margin_50"
+            android:layout_marginLeft="@dimen/common_content_margin_50"
+            android:background="@drawable/common_button_1_selector"
+            android:text="@string/capture_scan_text2_4"
+            android:textColor="@color/common_font_color_ffffff"
+            android:textSize="@dimen/common_font_size_16"
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onClickViewToInput"/>
+    </LinearLayout>
+
+</LinearLayout>

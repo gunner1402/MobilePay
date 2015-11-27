@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingRight="@dimen/common_content_margin_30">
+    <TextView
+                android:id="@+id/login_user_list_item_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_user_list_item_height"
+                android:text="@string/login_title_sub"
+                android:textColor="@color/common_font_color_000000"
+                android:textSize="@dimen/common_font_size_12"
+                android:gravity="right|center_vertical"/>
+
+
+</RelativeLayout>

@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="2dip"
+            android:background="@color/common_list_item_divide_bg"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_head_height_size"
+        android:background="@drawable/common_list_item_selector">
+
+        <TextView
+            android:id="@+id/fragment_mine_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/common_content_margin_20"
+            android:textSize="@dimen/common_font_size_14"
+            android:textColor="@color/common_font_color_000000"
+            android:text="sfsdfsf"/>
+        <TextView
+            android:layout_width="@dimen/common_head_back_height"
+            android:layout_height="@dimen/common_head_back_height"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/common_content_margin_10"
+            android:background="@mipmap/common_arrow_right"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="2dip"
+        android:background="@color/common_list_item_divide_bg"
+        android:layout_marginBottom="@dimen/common_content_margin_10"/>
+
+</LinearLayout>

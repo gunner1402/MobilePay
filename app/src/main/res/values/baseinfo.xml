@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+	tools:ignore="TypographyDashes">
+
+<string name="app_code">loar</string>
+
+<string name="app_publickey">ggsaPOLW05QpMfj1w5SotegFUQgpMb</string>
+
+<string name="app_environment">sandbox</string><!--   production sandbox  -->
+
+<string name="app_mode">online</string>
+
+<string name="app_mdata_appid">331358106</string>
+
+<string name="googleplay_app_id">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnGR8uBbcKKkZ+hmFGVQg5tnjoJjxVAbrsogXwX6aNvJZ+GeM77llN76vhF/x7GH3tU4yH0iLUcHjcMPGvIG8iAp8//dQMoH2Me+qeRTUwlPCOVbw0WzfefvYtTgqPIk/89SMdWIqe883u3omvve5Gcecya55E78qSD7WNmZYeNH/XXL+OQfFSwx3p5uOQfHUBn1HOLstdeSEbmOA4HPgAMwrHRkGFA+rMcy9f6ipVGlZ4ecOdny2EDgzW2h3sCiKMN6ZQQ1MeCzjcTelt0jEcXgL8jHejKwQHlGV6u/fMhZbZ96CKmcq4YhWaTxvymmm3kVq08SxevhcMz7lCmXQaQIDAQAB</string>
+
+<string name="facebook_app_id">340989056058098</string>
+
+</resources>

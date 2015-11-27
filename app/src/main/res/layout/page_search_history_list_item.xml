@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/search_history_list_item_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/search_history_list_item_height"
+        android:textSize="@dimen/common_font_size_12"
+        android:textColor="@color/common_font_color_868585"
+        android:paddingRight="@dimen/common_content_margin_20"
+        android:gravity="center_vertical|right"
+        android:text="界面 搜索"/>
+</LinearLayout>

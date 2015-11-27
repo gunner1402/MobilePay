@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.oasgames.android.oaspay"
+    android:versionCode="3"
+    android:versionName="1.0.0"
+    tools:ignore="GradleOverrides">
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="21" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+
+    <application
+        android:name=".activity.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.ActivityLogo"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.ActivityMain"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait" android:launchMode="singleTop"/>
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:label="@string/app_name" />
+        <activity android:name=".activity.ActivityLogin"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ActivityGooglePlayBilling"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ActivitySearch"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ActivityOrderListSlide"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ActivityOrderDetails"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait" android:launchMode="singleTask"/>
+        <activity android:name=".activity.ActivityProductList"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ActivityProductDetails"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ActivityCapture"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ActivityCaptureInput"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ActivityPayPackageList"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ActivityAbout"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ActivityNewsDetails"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ActivityWebview"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait"/>
+
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.googleplay.ApplicationId"
+            android:value="@string/googleplay_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <!--<provider
+        android:name="com.facebook.FacebookContentProvider"
+        android:authorities="com.facebook.app.FacebookContentProvider340989056058098"
+        android:exported="true" />-->
+    </application>
+
+</manifest>

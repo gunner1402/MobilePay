@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/fragment_shop_category_review_item_height"
+    android:paddingLeft="@dimen/common_content_margin_15"
+    android:paddingRight="@dimen/common_content_margin_15"
+    android:paddingTop="@dimen/common_content_margin_10"
+    android:paddingBottom="@dimen/common_content_margin_10">
+
+    <ImageView
+        android:id="@+id/product_item_img"
+        android:layout_width="@dimen/fragment_shop_category_review_item_img_width"
+        android:layout_height="@dimen/fragment_shop_category_review_item_img_height"
+        android:scaleType="fitXY"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:background="@mipmap/common_default_bg"/>
+
+    <TextView
+        android:id="@+id/product_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/product_item_img"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="@dimen/common_content_margin_10"
+        android:text="sljfsdjfsd"
+        android:textSize="@dimen/common_font_size_12"
+        android:textColor="@color/common_font_color_000000"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_toLeftOf="@id/product_item_img"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/product_item_diamond_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/common_content_margin_5"
+            android:text="300"
+            android:textSize="@dimen/common_font_size_12"
+            android:textColor="@color/common_font_color_ff5a00"/>
+        <TextView
+            android:id="@+id/product_item_diamond_bg"
+            android:layout_width="@dimen/fragment_shop_category_review_item_diamond_width"
+            android:layout_height="@dimen/fragment_shop_category_review_item_diamond_width"
+            android:layout_marginRight="@dimen/common_content_margin_10"
+            android:background="@mipmap/common_diamond_blue"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/product_item_charge"
+        android:layout_width="@dimen/fragment_shop_category_review_item_charge_width"
+        android:layout_height="@dimen/fragment_shop_category_review_item_charge_height"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="@string/fragment_shop_category_review_charge"
+        android:textColor="@color/common_font_color_ffffff"
+        android:textSize="@dimen/common_font_size_12"
+        android:background="@drawable/common_button_1_selector"/>
+</RelativeLayout>
+

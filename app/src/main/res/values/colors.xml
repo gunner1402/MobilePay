@@ -1,0 +1,33 @@
+<resources>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="transparent_background">#00000000</color>
+
+    <color name="common_font_color_ffffff">#FFFFFF</color>
+    <color name="common_font_color_000000">#000000</color>
+    <color name="common_font_color_868585">#868585</color>
+    <color name="common_font_color_398903">#398903</color>
+    <color name="common_font_color_ff5a00">#FF5A00</color>
+    <color name="common_font_color_49a81a">#49a81a</color>
+    <color name="common_font_color_fb8f03">#fb8f03</color>
+    <color name="common_background_all_page">#F2F2F2</color>
+    <color name="common_list_item_bg_selected">#EDEDED</color>
+    <color name="common_list_item_bg_unselected">#FFFFFF</color>
+    <color name="common_list_item_divide_bg">#E2E2E2</color>
+
+    <color name="common_background_333333">#333333</color>
+
+    <color name="common_button_bg_selected">#57a034</color>
+    <color name="common_button_bg_unselected">#74bb51</color>
+
+    <color name="common_button_delete_bg_unselect">#F77A15</color>
+    <color name="common_button_delete_bg_selected">#F76A15</color>
+
+    <color name="main_foot_bg">#e9e9e9</color>
+
+    <color name="capture_result_view">#FF000000</color>
+    <color name="capture_viewfinder_mask">#FF666666</color>
+    <color name="capture_possible_result_points">#c0ffff00</color>
+
+
+</resources>

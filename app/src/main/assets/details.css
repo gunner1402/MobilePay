@@ -1,0 +1,37 @@
+@charset "utf-8";
+/* CSS Reset */
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img, td { margin: 0; padding: 0; }
+fieldset, img { border: none; vertical-align: middle; }
+address, caption, cite, code, dfn, th, var { font-style: normal; font-weight: normal; }
+ul, ol { list-style: none; }
+i,em,ins,u{font-style:normal; text-decoration:none }
+select, input { vertical-align: middle; }
+select, input, textarea { margin: 0; outline: none; resize: none; color: #888; font-family: "黑体";}
+table { border-collapse: collapse; }
+html{-webkit-text-size-adjust: none}
+body { color: #333333; font-family: "微软雅黑"; background: #f5f5f5;min-width: 320px;}
+* { -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box }
+p,h1,h2,h3,h4{font-size: 1em;font-weight: normal}
+@media screen and (min-width: 320px) {
+    body { font-size: 16px;}
+}
+
+@media screen and (min-width: 480px) {
+    body { font-size: 24px; }
+}
+
+@media screen and (min-width: 640px) {
+    body { font-size: 32px; }
+}
+/*关于我们*/
+section.about_section{text-align: center;}
+.about_section img{margin-top: 2.1875em}
+.pay_name{text-align: center;height: 0.75em;line-height: 0.45em;margin-top: 1em;}
+.pay_name span{color: #000;font-size: 0.75em;}
+span.about_section_versions{font-size: 0.75em;display: block;margin-top: 0.4em;}
+.about_section p{margin-top: 1.75em;line-height: 1.5em;text-align: right}
+.about_section p span{color: #000;font-size: 0.8125em;}
+.about_footer{text-align: center;color: #868585;line-height: 0.8em;margin-top: 3.4375em;}
+.about_footer span{font-size: 0.6875em;}
+/*关于我们*/
+

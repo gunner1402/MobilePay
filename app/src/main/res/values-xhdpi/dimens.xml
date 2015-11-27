@@ -1,0 +1,58 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">8dp</dimen>
+    <dimen name="activity_vertical_margin">8dp</dimen>
+
+    <dimen name="common_head_height_size">49dip</dimen>
+    <dimen name="common_head_back_height">33dip</dimen>
+
+    <dimen name="common_content_margin_50">50dip</dimen>
+    <dimen name="common_content_margin_30">30dip</dimen>
+    <dimen name="common_content_margin_20">20dip</dimen>
+    <dimen name="common_content_margin_15">15dip</dimen>
+    <dimen name="common_content_margin_10">10dip</dimen>
+    <dimen name="common_content_margin_5">5dip</dimen>
+
+    <dimen name="common_font_size_16">16sp</dimen>
+    <dimen name="common_font_size_14">14sp</dimen>
+    <dimen name="common_font_size_12">12sp</dimen>
+
+    <dimen name="fragment_shop_viewpager_height">90dip</dimen>
+    <dimen name="fragment_shop_function_item_height">62dip</dimen>
+    <dimen name="fragment_shop_category_height">25dip</dimen>
+    <dimen name="fragment_shop_category_head_img_height">13dip</dimen>
+    <dimen name="fragment_shop_category_newest_item_height">90dip</dimen>
+    <dimen name="fragment_shop_category_newest_item_width">140dip</dimen>
+    <dimen name="fragment_shop_category_review_item_height">78dip</dimen>
+    <dimen name="fragment_shop_category_review_item_img_height">58dip</dimen>
+    <dimen name="fragment_shop_category_review_item_img_width">87dip</dimen>
+    <dimen name="fragment_shop_category_review_item_diamond_width">10dip</dimen>
+    <dimen name="fragment_shop_category_review_item_charge_width">70dip</dimen>
+    <dimen name="fragment_shop_category_review_item_charge_height">28dip</dimen>
+
+    <dimen name="fragment_mine_head_bg_height">150dip</dimen>
+    <dimen name="fragment_mine_head_bg_touxiang_height">61dip</dimen>
+    <dimen name="fragment_mine_exit_width">220dip</dimen>
+    <dimen name="fragment_mine_exit_height">45dip</dimen>
+
+    <dimen name="main_foot_height">50dip</dimen>
+    <dimen name="main_foot_flag_height">3dip</dimen>
+
+    <dimen name="login_edit_height">28dip</dimen>
+    <dimen name="login_style_btn_height">44dip</dimen>
+    <dimen name="login_register_btn_height">33dip</dimen>
+    <dimen name="login_register_btn_width">94dip</dimen>
+    <dimen name="login_user_list_item_height">32dip</dimen>
+
+    <dimen name="order_list_item_head_height">31dip</dimen>
+    <dimen name="order_list_item_center_image_width">87dip</dimen>
+    <dimen name="order_list_item_center_image_height">58dip</dimen>
+    <dimen name="order_list_item_center_topay_width">80dip</dimen>
+    <dimen name="order_list_item_center_topay_height">28dip</dimen>
+    <dimen name="order_list_item_delete_width">64dip</dimen>
+    <dimen name="order_list_item_delete_width2">-64dip</dimen>
+    <dimen name="order_list_item_delete_height">159dip</dimen>
+
+    <dimen name="search_history_list_item_height">40dip</dimen>
+
+</resources>

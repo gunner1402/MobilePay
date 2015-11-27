@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/pay_package_list_item_price"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_register_btn_height"
+            android:text="$4564.32"
+            android:textSize="@dimen/common_font_size_14"
+            android:textColor="@color/common_font_color_fb8f03"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="="
+            android:textSize="@dimen/common_font_size_14"
+            android:textColor="@color/common_font_color_000000"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/pay_package_list_item_diamond_red_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:gravity="right|center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:textSize="@dimen/common_font_size_14"
+            android:textColor="@color/common_font_color_000000"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:id="@+id/pay_package_list_item_diamond_red"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/login_register_btn_height"
+                android:text="456432"
+                android:textSize="@dimen/common_font_size_14"
+                android:textColor="@color/common_font_color_000000"
+                android:gravity="center"
+                android:layout_marginRight="@dimen/common_content_margin_5"/>
+
+            <TextView
+                android:layout_width="@dimen/fragment_shop_category_review_item_diamond_width"
+                android:layout_height="@dimen/fragment_shop_category_review_item_diamond_width"
+                android:background="@mipmap/common_diamond_red"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/pay_package_list_item_diamond_blue_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/pay_package_list_item_diamond_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/login_register_btn_height"
+            android:text="456432"
+            android:textSize="@dimen/common_font_size_14"
+            android:textColor="@color/common_font_color_000000"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/common_content_margin_5"/>
+
+        <TextView
+            android:layout_width="@dimen/fragment_shop_category_review_item_diamond_width"
+            android:layout_height="@dimen/fragment_shop_category_review_item_diamond_width"
+            android:background="@mipmap/common_diamond_blue"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+</LinearLayout>

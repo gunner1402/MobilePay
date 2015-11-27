@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_background_all_page">
+
+    <include layout="@layout/common_head"/>
+
+    <RadioGroup
+        android:id="@+id/order_list_radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_foot_height"
+        android:background="@color/common_font_color_ffffff"
+        android:paddingTop="@dimen/common_content_margin_10"
+        android:paddingBottom="@dimen/common_content_margin_10"
+        android:paddingRight="@dimen/common_content_margin_20"
+        android:paddingLeft="@dimen/common_content_margin_20"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/order_list_radiogroup_history"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/order_list_title_sub1"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:button="@null"
+            android:background="@drawable/order_list_head_left_selector"
+            android:textSize="@dimen/common_font_size_14"
+            android:textColor="@color/common_font_color_ffffff"
+            android:checked="true"/>
+        <RadioButton
+            android:id="@+id/order_list_radiogroup_month"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/order_list_title_sub2"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:button="@null"
+            android:background="@drawable/order_list_head_right_selector"
+            android:textSize="@dimen/common_font_size_14"
+            android:textColor="@color/common_button_bg_unselected"/>
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:background="@color/common_list_item_divide_bg"
+        android:layout_marginBottom="@dimen/common_content_margin_10"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/order_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

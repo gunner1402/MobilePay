@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/common_head"/>
+        <WebView
+            android:id="@+id/news_details_webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/webview_fuc"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:background="@color/common_font_color_ffffff">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingTop="15dip"
+            android:paddingBottom="15dip"
+            android:onClick="onButtonClick_back"
+            android:layout_weight="1"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/webview_fuc_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/webview_fuc_back_unable"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingTop="15dip"
+            android:paddingBottom="15dip"
+            android:onClick="onButtonClick_forward"
+            android:layout_weight="1"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/webview_fuc_forward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/webview_fuc_forward_unable"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingTop="15dip"
+            android:paddingBottom="15dip"
+            android:onClick="onButtonClick_refresh"
+            android:layout_weight="1"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/webview_fuc_refresh"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>

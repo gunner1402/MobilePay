@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:gravity="center">
+
+	<ProgressBar 
+		android:layout_width="162dip" android:layout_height="162dip"
+		android:indeterminate="false" android:indeterminateDrawable="@anim/common_loading_pic_more"
+		android:indeterminateOnly="true"/>
+	
+	<TextView android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_marginTop="15dip"
+		android:visibility="gone"/>  <!-- android:text="数据加载中" -->
+	
+</LinearLayout>

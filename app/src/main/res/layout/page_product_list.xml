@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/common_background_all_page">
+
+    <include layout="@layout/common_head"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/product_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:listSelector="@drawable/common_list_item_selector"
+            android:background="@color/common_font_color_ffffff"
+            android:divider="@color/common_list_item_divide_bg"
+            android:dividerHeight="2dip"
+            android:cacheColorHint="@color/transparent_background"/>
+
+        <include layout="@layout/common_network_error"/>
+    </FrameLayout>
+
+
+</LinearLayout>

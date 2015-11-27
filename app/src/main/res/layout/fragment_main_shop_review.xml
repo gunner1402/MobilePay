@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_shop_review"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_shop_category_height">
+
+        <TextView
+            android:id="@+id/fragment_shop_category_review_img"
+            android:layout_width="@dimen/fragment_shop_category_head_img_height"
+            android:layout_height="@dimen/fragment_shop_category_head_img_height"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/common_content_margin_10"
+            android:background="@mipmap/fragment_shop_category_review"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/fragment_shop_category_review_img"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/common_content_margin_5"
+            android:gravity="right|center_vertical"
+            android:text="@string/fragment_shop_category_review"
+            android:textSize="@dimen/common_font_size_14"
+            android:textColor="@color/common_font_color_000000"/>
+        <TextView
+            android:id="@+id/fragment_shop_category_review_more"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/common_content_margin_10"
+            android:gravity="right|center_vertical"
+            android:text="@string/fragment_shop_category_more"
+            android:textSize="@dimen/common_font_size_12"
+            android:textColor="@color/common_font_color_000000"
+            android:clickable="true"
+            android:onClick="onClickView"/>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/fragment_shop_category_review_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/common_font_color_ffffff"
+        android:listSelector="@drawable/common_list_item_selector"
+        android:divider="@color/common_list_item_divide_bg"
+        android:dividerHeight="2dip"/>
+
+</LinearLayout>

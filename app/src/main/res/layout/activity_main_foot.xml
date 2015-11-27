@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/main_foot_height"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="2dip"
+        android:background="@color/common_list_item_divide_bg"/>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/main_foot_bg">
+
+        <RadioGroup
+            android:id="@+id/main_tab_group"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:orientation="horizontal" >
+            <!-- android:background="@drawable/bottom1" -->
+
+            <RadioButton
+                android:id="@+id/main_tab_0"
+                style="@style/MMTabButton"
+                android:layout_gravity="center"
+                android:text="@string/main_foot_1"
+                android:drawableTop="@drawable/main_foot_shop_selector"
+                android:tag="a"/>
+
+            <RadioButton
+                android:id="@+id/main_tab_1"
+                style="@style/MMTabButton"
+                android:checked="true"
+                android:text="@string/main_foot_2"
+                android:drawableTop="@drawable/main_foot_news_selector"
+                android:tag="b"/>
+
+            <RadioButton
+                android:id="@+id/main_tab_2"
+                style="@style/MMTabButton"
+                android:text="@string/main_foot_3"
+                android:drawableTop="@drawable/main_foot_mine_selector"
+                android:tag="c"/>
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/main_tab_new_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_marginLeft="60dip"
+            android:layout_marginTop="1dip"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="#ffffff"
+            android:textSize="10sp"
+            android:visibility="gone" />
+        <!-- android:background="@drawable/tips" -->
+        <LinearLayout
+            android:id="@+id/main_foot_flag"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom"/>
+    </FrameLayout>
+</LinearLayout>

@@ -1,0 +1,101 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/common_background_all_page">
+
+    <include layout="@layout/common_head"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <RadioGroup
+                android:id="@+id/order_list_radiogroup"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/main_foot_height"
+                android:background="@color/common_font_color_ffffff"
+                android:paddingTop="@dimen/common_content_margin_10"
+                android:paddingBottom="@dimen/common_content_margin_10"
+                android:paddingRight="@dimen/common_content_margin_20"
+                android:paddingLeft="@dimen/common_content_margin_20"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/order_list_radiogroup_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/order_list_title_sub1"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:button="@null"
+                    android:background="@drawable/order_list_head_left_selector"
+                    android:textSize="@dimen/common_font_size_14"
+                    android:textColor="@color/common_button_bg_unselected"/>
+                <RadioButton
+                    android:id="@+id/order_list_radiogroup_month"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/order_list_title_sub2"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:button="@null"
+                    android:background="@drawable/order_list_head_right_selector"
+                    android:textSize="@dimen/common_font_size_14"
+                    android:textColor="@color/common_font_color_ffffff"
+                    android:checked="true"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="2dip"
+                android:background="@color/common_list_item_divide_bg"/>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.base.tools.slide.SlideListView
+                    xmlns:slide="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    slide:slideAnimationTime="200"
+                    slide:slideLeftAction="scroll"
+                    slide:slideMode="right"
+                    slide:slideRightAction="scroll"
+                    android:background="@color/transparent_background"
+                    android:listSelector="@color/transparent_background"
+                    android:layout_marginTop="@dimen/common_content_margin_10"
+                    android:dividerHeight="0dip"
+                    android:divider="@color/transparent_background"
+                    android:visibility="invisible"/>
+                <com.base.tools.slide.SlideListView
+                    xmlns:slide="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/list_view_month"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    slide:slideAnimationTime="200"
+                    slide:slideLeftAction="scroll"
+                    slide:slideMode="right"
+                    slide:slideRightAction="scroll"
+                    android:background="@color/transparent_background"
+                    android:listSelector="@color/transparent_background"
+                    android:layout_marginTop="@dimen/common_content_margin_10"
+                    android:dividerHeight="0dip"
+                    android:divider="@color/transparent_background"/>
+
+                <include layout="@layout/page_order_list_slide_empty"/>
+
+            </FrameLayout>
+        </LinearLayout>
+
+        <include layout="@layout/common_network_error"/>
+    </FrameLayout>
+
+</LinearLayout>
