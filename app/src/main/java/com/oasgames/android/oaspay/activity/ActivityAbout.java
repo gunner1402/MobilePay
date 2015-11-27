@@ -13,6 +13,7 @@ import com.oasgames.android.oaspay.R;
  */
 public class ActivityAbout extends BasesActivity {
     WebView webView;
+    int i = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
