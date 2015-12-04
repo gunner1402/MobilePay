@@ -202,7 +202,7 @@ public class ActivityCapture extends BasesActivity implements Callback {
 				return;
 			}
 			startActivity(new Intent().setClass(activity, ActivityOrderDetails.class).putExtra("orderinfo", info));
-			activity.finish();
+//			activity.finish();
 		}
 
 		@Override
