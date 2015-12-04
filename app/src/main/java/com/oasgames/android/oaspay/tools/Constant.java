@@ -20,8 +20,8 @@ public class Constant {
 	 */
 	public static final String SDKVERSION = VERSION + ".5";
 
-	public static final String BASEURL = "http://apisdk.mobile.oasgames.com/"+VERSION+"/?";
-	public static final String BASEURL_SANDBOX = "http://apisdk.mobile.oasgames.com/sandbox/?";
+	public static final String BASEURL = "http://arapp.mobile.oasgames.com/?";
+//	public static final String BASEURL_SANDBOX = "http://apisdk.mobile.oasgames.com/sandbox/?";
 
 	public static final Hashtable<Integer, String> http_statuscode_errorMsg = new Hashtable<Integer, String>();
 	static {

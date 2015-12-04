@@ -34,6 +34,7 @@ import com.oasgames.android.oaspay.entity.SearchKeywordInfo;
 import com.oasgames.android.oaspay.entity.ServerInfo;
 import com.oasgames.android.oaspay.entity.ShopFocus;
 import com.oasgames.android.oaspay.entity.ShopList;
+import com.oasgames.android.oaspay.tools.Constant;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -895,11 +896,11 @@ public class HttpService {
 	}
 
 	private StringBuffer getUrl(String url){
-		StringBuffer sb = new StringBuffer("http://arapp.mobile.test.oasgames.com/?"+url);
+		StringBuffer sb = new StringBuffer(Constant.BASEURL+url);
 		return sb.append(PhoneInfo.instance().toString());
 	}
 	private StringBuffer getUrlForLogin(String url){
-		StringBuffer sb = new StringBuffer("http://arapp.mobile.test.oasgames.com/?"+url);
+		StringBuffer sb = new StringBuffer(Constant.BASEURL+url);
 		return sb.append(PhoneInfo.instance().toStringForLogin());
 	}
 }
