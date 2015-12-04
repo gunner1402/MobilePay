@@ -1,7 +1,10 @@
 package com.base.tools.google;
 
+import android.text.TextUtils;
+
 import com.base.tools.http.CallbackResultForActivity;
 import com.base.tools.utils.BasesUtils;
+import com.base.tools.utils.FileUtils;
 import com.oasgames.android.oaspay.entity.OrderInfo;
 import com.oasgames.android.oaspay.service.HttpService;
 import com.oasgames.android.oaspay.tools.ReportUtils;
@@ -27,9 +30,9 @@ public class GoogleBillingTimer extends TimerTask {
         }else{
         	period++;
         }
-    }  
-      
-    //通过反射修改字段的值  
+    }
+
+    //通过反射修改字段的值
     static boolean setDeclaredField(Class<?> clazz, Object obj,  
             String name, Object value) {  
         try {  
@@ -45,7 +48,6 @@ public class GoogleBillingTimer extends TimerTask {
     
 	@Override
 	public void run() {
-		BasesUtils.logDebug(TAG, "There are currently no outstanding orders.");
 		setPeriod();
 		List<Purchase> orderList = null;
 		try {
@@ -63,8 +65,11 @@ public class GoogleBillingTimer extends TimerTask {
 		int size = orderList.size();
 		for (int i = 0; i < size; i++) {
 			Purchase purchase = orderList.get(i);
-			HttpService.instance().checkPurchaseForGoogle(purchase, GoogleBillingUtils.SEPARATE, new MyCallback(purchase));
-
+			if(!TextUtils.isEmpty(purchase.getOrderId()) && !TextUtils.isEmpty(purchase.getOriginalJson()) && !TextUtils.isEmpty(purchase.getSignature())
+					&& !TextUtils.isEmpty(purchase.getSku())) {
+				FileUtils.writeLogToStore(i + ":  " + purchase.toString());
+				HttpService.instance().checkPurchaseForGoogle(purchase, GoogleBillingUtils.SEPARATE, new MyCallback(purchase));
+			}
 		}//end for
 	}
 

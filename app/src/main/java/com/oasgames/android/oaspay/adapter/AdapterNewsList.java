@@ -1,5 +1,6 @@
 package com.oasgames.android.oaspay.adapter;
 
+import android.text.Html;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,7 @@ public class AdapterNewsList extends BasesListAdapter<NewsInfo> {
 		
 		final NewsInfo info = getItem(position);
 		hoder.title.setText(info.title);
-		hoder.discrip.setText(info.summary);
+		hoder.discrip.setText(Html.fromHtml(info.summary));
 		hoder.time.setText(DateFormat.format("MM-dd", Long.parseLong(info.start_time + "000")));
 
 		return convertView;

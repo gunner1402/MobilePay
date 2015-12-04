@@ -168,6 +168,8 @@ public class ActivityPayPackageList extends BasesActivity {
             topay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(BasesUtils.isFastDoubleClick())
+                        return;
                     getOrderId();
                 }
             });
@@ -180,25 +182,26 @@ public class ActivityPayPackageList extends BasesActivity {
     class MyCallbackForGetOrderId implements CallbackResultForActivity{
         @Override
         public void success(Object data, int statusCode, String msg) {
+            if(!isPageClose()) {
+                Intent in = new Intent().setClass(ActivityPayPackageList.this, ActivityGooglePlayBilling.class);
+                in.putExtra("orderinfo", ((OrderInfo) data));
+                startActivity(in);
+            }
             setWaitScreen(false);
-            Intent in = new Intent().setClass(ActivityPayPackageList.this, ActivityGooglePlayBilling.class);
-//            in.putExtra("inAppProductID", selectedPayInfo.price_product_id);
-//            in.putExtra("revenue", selectedPayInfo.amount_show);
-//            in.putExtra("oasOrderid", ((OrderInfo)data).order_id);
-            in.putExtra("orderinfo", ((OrderInfo)data));
-            startActivity(in);
         }
 
         @Override
         public void fail(int statusCode, String msg) {
             setWaitScreen(false);
-            APPUtils.showErrorMessageByErrorCode(ActivityPayPackageList.this, "-2000");
+            if(!isPageClose())
+                APPUtils.showErrorMessageByErrorCode(ActivityPayPackageList.this, "-2000");
         }
 
         @Override
         public void exception(Exception e) {
             setWaitScreen(false);
-            APPUtils.showErrorMessageByErrorCode(ActivityPayPackageList.this, "-2000");
+            if(!isPageClose())
+                APPUtils.showErrorMessageByErrorCode(ActivityPayPackageList.this, "-2000");
         }
     }
 }

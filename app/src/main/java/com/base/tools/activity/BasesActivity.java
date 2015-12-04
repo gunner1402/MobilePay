@@ -2,9 +2,10 @@ package com.base.tools.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import com.base.tools.utils.BasesUtils;
 import com.oasgames.android.oaspay.R;
+
+import java.lang.ref.WeakReference;
 
 public class BasesActivity extends Activity {
 
@@ -27,6 +30,7 @@ public class BasesActivity extends Activity {
 	
 	private View wait_dialog;
 	private boolean isPageClose = false;
+	private MyHandler handler;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,20 +55,22 @@ public class BasesActivity extends Activity {
         
 //		if(null == wait_dialog)
 //			wait_dialog = BaseUtils.createWaitDialog(this, -1);
+
+		handler = new MyHandler(this);
 	}
 
 	private void openWaitDialog(){
 		if(null == wait_dialog){
-			wait_dialog = getLayoutInflater().inflate(BasesUtils.getResourceValue("layout", "common_waiting_anim"), null);
+//			wait_dialog = getLayoutInflater().inflate(BasesUtils.getResourceValue("layout", "common_waiting_anim"), null);
+			wait_dialog = findViewById(R.id.common_waiting_anim_layout);
 			wait_dialog.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 				}
 			});
-			addContentView(wait_dialog, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-//			wait_dialog = BaseUtils.createWaitDialog(this, -1);
+//			addContentView(wait_dialog, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 		}
-		if(!wait_dialog.isShown())
+		if(null != wait_dialog)
 			wait_dialog.setVisibility(View.VISIBLE);
 		
 //		if(!isPageClose)
@@ -72,8 +78,15 @@ public class BasesActivity extends Activity {
 	}
 	
 	private void closeWaitDialog(){
-		if(wait_dialog != null)
-			wait_dialog.setVisibility(View.INVISIBLE);
+		if(wait_dialog == null) {
+			wait_dialog = findViewById(R.id.common_waiting_anim_layout);
+			wait_dialog.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+				}
+			});
+		}
+		handler.sendEmptyMessageDelayed(1, 300);// 延迟300毫秒 关闭
 	}
 
 	public void setWaitScreen(boolean type){
@@ -85,6 +98,26 @@ public class BasesActivity extends Activity {
 		else
 			closeWaitDialog();
 	}
+
+	public static class MyHandler extends Handler {
+
+		// WeakReference to the outer class's instance.
+		private WeakReference<BasesActivity> mOuter;
+
+		public MyHandler(BasesActivity activity) {
+			mOuter = new WeakReference<BasesActivity>(activity);
+		}
+
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what){
+				case 1:
+					mOuter.get().wait_dialog.setVisibility(View.INVISIBLE);
+					break;
+			}
+		}
+	}
+
 	/**
 	 * 检测当前页面是否被关闭
 	 * @return 返回true为已关闭，返回false为未关闭
@@ -146,6 +179,8 @@ public class BasesActivity extends Activity {
 	 * 网络异常时，提示
 	 */
 	public void showNetWrokError(){
+		if(isPageClose())
+			return;
 		networkErrorView = (LinearLayout)findViewById(R.id.common_network_error);
 		networkErrorView.setVisibility(View.VISIBLE);
 		TextView retry = (TextView)findViewById(R.id.common_network_retry);

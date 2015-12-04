@@ -65,7 +65,7 @@ public class BasesDao {
 
 		// 文本参数
 		if(paras != null && paras.size() >0) {
-			StringBuffer sbuf = new StringBuffer(url+"?");
+			StringBuffer sbuf = new StringBuffer(url);
 			for (Map.Entry<String, String> en : paras.entrySet()) {
 				multi.addStringPart(en.getKey(), en.getValue());
 				sbuf.append("&"+en.getKey()+"="+en.getValue());

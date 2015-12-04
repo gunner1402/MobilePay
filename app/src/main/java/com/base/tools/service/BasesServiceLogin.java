@@ -123,8 +123,6 @@ public class BasesServiceLogin {
     }
 
     private void loginAndRegist(final String platform, final String username, final String password, final String oasNickName, StringBuffer url, final CallbackResultForActivity callback) {
-        String result = "";
-        BasesUtils.logError(TAG, "登录URL："+url.toString());
         new BasesDao().post(url.toString(), null, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {

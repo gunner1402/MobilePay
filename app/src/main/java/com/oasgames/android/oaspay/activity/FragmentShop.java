@@ -53,11 +53,12 @@ public class FragmentShop extends Fragment {
 	}
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 
 		main_shop_wait = getActivity().findViewById(R.id.main_shop_wait);
 		main_shop_wait.setVisibility(View.VISIBLE);
+		networkError =getActivity().findViewById(R.id.main_shop_netwrok_error);
+
 //		TextView tv = (TextView)this.getActivity().findViewById(R.id.main_shop_test);
 //		tv.setOnClickListener(new View.OnClickListener() {
 //			@Override
@@ -101,7 +102,7 @@ public class FragmentShop extends Fragment {
 
 		handler = new ShopHeadImageHandler(new WeakReference<FragmentShop>(this));
 
-		handler.sendEmptyMessageDelayed(ShopHeadImageHandler.MSG_LOADALL, 3000);
+		handler.sendEmptyMessageDelayed(ShopHeadImageHandler.MSG_LOADALL, 1500);
 	}// end of onActivityCreated
 
 	private void loadAllData(){
@@ -117,7 +118,6 @@ public class FragmentShop extends Fragment {
 		@Override
 		public void exception(Exception e) {
 			main_shop_wait.setVisibility(View.INVISIBLE);
-			networkError =getActivity().findViewById(R.id.main_shop_netwrok_error);
 			networkError.setVisibility(View.VISIBLE);
 			networkError.findViewById(R.id.common_network_retry).setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -153,7 +153,6 @@ public class FragmentShop extends Fragment {
 		@Override
 		public void fail(int statusCode, String msg) {// 失败与异常相同处理，否则，失败时无法触发重新加载数据
 			main_shop_wait.setVisibility(View.INVISIBLE);
-			networkError =getActivity().findViewById(R.id.main_shop_netwrok_error);
 			networkError.setVisibility(View.VISIBLE);
 			networkError.findViewById(R.id.common_network_retry).setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -176,6 +175,8 @@ public class FragmentShop extends Fragment {
 		newestGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if(BasesUtils.isFastDoubleClick())
+					return;
 				startActivity(new Intent().setClass(getActivity(), ActivityProductDetails.class).putExtra("id", newestAdapter.getItem(position).product_id));
 			}
 		});
@@ -191,6 +192,8 @@ public class FragmentShop extends Fragment {
 		hotestGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if(BasesUtils.isFastDoubleClick())
+					return;
 				startActivity(new Intent().setClass(getActivity(), ActivityProductDetails.class).putExtra("id", hotestAdapter.getItem(position).product_id));
 			}
 		});
@@ -208,6 +211,8 @@ public class FragmentShop extends Fragment {
 		browseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if(BasesUtils.isFastDoubleClick())
+					return;
 				startActivity(new Intent().setClass(getActivity(), ActivityProductDetails.class).putExtra("id", reviewAdapter.getItem(position).product_id));
 			}
 		});

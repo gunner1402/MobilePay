@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.base.tools.activity.BasesActivity;
 import com.base.tools.http.CallbackResultForActivity;
@@ -31,6 +32,7 @@ import java.text.SimpleDateFormat;
  */
 public class ActivityOrderDetails extends BasesActivity {
     OrderInfo order;
+    Toast toast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,7 @@ public class ActivityOrderDetails extends BasesActivity {
 
         order = (OrderInfo)getIntent().getExtras().get("orderinfo");
 
+        toast = Toast.makeText(this, "", Toast.LENGTH_LONG);
         updateView();
     }
 
@@ -114,7 +117,7 @@ public class ActivityOrderDetails extends BasesActivity {
             paytime.setText(getString(R.string.order_details_label_5) + "  "+sdf.format(Long.parseLong(order.pay_time + "000")));
         }else
             ((TextView)findViewById(R.id.order_details_paytime)).setVisibility(View.GONE);
-        ((TextView)findViewById(R.id.order_details_paystyle)).setText(getString(R.string.order_details_label_6) +"  "+ "Google Play" );
+        ((TextView)findViewById(R.id.order_details_paystyle)).setText(getString(R.string.order_details_label_6) +"  "+ ("google".equalsIgnoreCase(order.ostype)?"Google Play":"AppStore" ));
 
         ((TextView)findViewById(R.id.order_details_price)).setText(order.currency_show +"  "+ order.amount_show);
 
@@ -122,11 +125,16 @@ public class ActivityOrderDetails extends BasesActivity {
             findViewById(R.id.order_details_topay).setVisibility(View.GONE);
         else
             findViewById(R.id.order_details_topay).setVisibility(View.VISIBLE);
+
+        setWaitScreen(false);
     }
 
     public void onClickViewCodeCopy(View view){
+        if(BasesUtils.isFastDoubleClick())
+            return;
         if(TextUtils.isEmpty(order.exchange_code)){
-            BasesUtils.showMsg(this, getString(R.string.order_details_label_12));
+            toast.setText(getString(R.string.order_details_label_12));
+            toast.show();
             return;
         }
         // 点击复制按钮  复制 兑换码
@@ -137,6 +145,13 @@ public class ActivityOrderDetails extends BasesActivity {
     }
 
     public void onClickViewTopay(View view){
+        if(BasesUtils.isFastDoubleClick())
+            return;
+        if(TextUtils.isEmpty(order.ostype) || !"google".equalsIgnoreCase(order.ostype)){
+            toast.setText(getString(R.string.capture_scan_text8));
+            toast.show();
+            return;
+        }
         // 点击支付按钮
         setWaitScreen(true);
         HttpService.instance().getOrderInfoByID(order.order_id, new GetOrderInfo(this));
@@ -149,6 +164,9 @@ public class ActivityOrderDetails extends BasesActivity {
         @Override
         public void success(final Object data, int statusCode, String msg) {
             setWaitScreen(false);
+            if(isPageClose())
+                return;
+
             order = (OrderInfo)data;
             if(!"1".equals(order.order_status)){// 订单已被删除
                 BasesUtils.showDialogBySystemUI(activity, getResources().getString(R.string.order_list_item_label9), getResources().getString(R.string.search_title_sub2), new DialogInterface.OnClickListener() {
@@ -178,13 +196,15 @@ public class ActivityOrderDetails extends BasesActivity {
         @Override
         public void fail(int statusCode, String msg) {
             setWaitScreen(false);
-            APPUtils.showErrorMessageByErrorCode(activity, "-2000");
+            if(!isPageClose())
+                APPUtils.showErrorMessageByErrorCode(activity, "-2000");
         }
 
         @Override
         public void exception(Exception e) {
             setWaitScreen(false);
-            APPUtils.showErrorMessageByErrorCode(activity, "-2000");
+            if(!isPageClose())
+                APPUtils.showErrorMessageByErrorCode(activity, "-2000");
         }
     }
 }

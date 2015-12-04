@@ -89,6 +89,9 @@ public class ActivityProductDetails extends BasesActivity {
         TextView tv = (TextView)findViewById(R.id.product_item_title);
         tv.setText(info.product_name);
 
+        TextView diamond = (TextView)findViewById(R.id.product_item_diamond_count);
+        diamond.setText(info.game_coins_show);
+
         TextView price = (TextView)findViewById(R.id.product_details_price);
         if(!TextUtils.isEmpty(info.amount_show))
             price.setText(info.currency_show+info.amount_show);
@@ -113,6 +116,8 @@ public class ActivityProductDetails extends BasesActivity {
         }
     }
     public void onClickViewTopay(View view){
+        if(BasesUtils.isFastDoubleClick())
+            return;
         if(BasesUtils.isLogin())
             getOrderID();
         else
@@ -126,17 +131,20 @@ public class ActivityProductDetails extends BasesActivity {
     class GetOrderIDCallback implements CallbackResultForActivity{
         @Override
         public void success(Object data, int statusCode, String msg) {
+            if(!isPageClose()) {
+                Intent in = new Intent().setClass(ActivityProductDetails.this, ActivityGooglePlayBilling.class);
+                in.putExtra("orderinfo", (OrderInfo) data);
+                startActivity(in);
+            }
             setWaitScreen(false);
-            Intent in = new Intent().setClass(ActivityProductDetails.this, ActivityGooglePlayBilling.class);
-            in.putExtra("orderinfo", (OrderInfo)data);
-            startActivity(in);
         }
 
         @Override
         public void fail(int statusCode, String msg) {
             setWaitScreen(false);
 //            showNetWrokError();
-            APPUtils.showErrorMessageByErrorCode(ActivityProductDetails.this, "-2000");
+            if(!isPageClose())
+                APPUtils.showErrorMessageByErrorCode(ActivityProductDetails.this, "-2000");
         }
 
         @Override

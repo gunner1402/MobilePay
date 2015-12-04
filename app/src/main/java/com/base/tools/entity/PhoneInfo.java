@@ -3,6 +3,9 @@ package com.base.tools.entity;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
+import com.base.tools.BasesApplication;
+import com.base.tools.utils.BasesUtils;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -156,6 +159,17 @@ public class PhoneInfo {
 		this.dm = dm;
 	}
 	public String toString(){
+		StringBuffer sb = new StringBuffer(toStringForLogin());
+
+		if(BasesUtils.isLogin()) {
+			sb.append("&uid=" + BasesApplication.userInfo.uid);
+			sb.append("&oas_token=" + BasesApplication.userInfo.token);
+			sb.append("&usertype=" + BasesApplication.userInfo.user_type);
+			sb.append("&platform=" + BasesApplication.userInfo.platform);
+		}
+		return sb.toString();
+	}
+	public String toStringForLogin(){
 		StringBuffer sb = new StringBuffer();
 		sb.append("&phonebrand="+brand);
 		try {

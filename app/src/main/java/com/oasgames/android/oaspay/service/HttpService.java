@@ -100,7 +100,7 @@ public class HttpService {
 	 * @param callback
 	 */
 	public void loginByToken(CallbackResultForActivity callback){
-		new BasesServiceLogin().loginWithRecentlyToken(getUrl("a=Login&m=AutoLogin"), callback);
+		new BasesServiceLogin().loginWithRecentlyToken(getUrlForLogin("a=Login&m=AutoLogin"), callback);
 	}
 	/**
 	 * 登录和注册
@@ -121,7 +121,7 @@ public class HttpService {
 	 */
 	public void login(String platform, String username, String password, String oasNickName, CallbackResultForActivity callback){
 		
-		StringBuffer url = getUrl("a=Login&m=UserLogin");
+		StringBuffer url = getUrlForLogin("a=Login&m=UserLogin");
 		int userType = 0;
 		if(platform.equals(MemberBaseInfo.USER_NONE)) {
 			userType = 0;
@@ -386,10 +386,14 @@ public class HttpService {
 	 */
 	public void sendOrder(String productid, String serverid, String servername, String rolename ,String orderType,final CallbackResultForActivity callback){
 		StringBuffer url = getUrl("a=Order&m=PlaceOrder");
-		url.append("&uid="+BasesApplication.userInfo.uid);
+//		url.append("&uid="+BasesApplication.userInfo.uid);
 		url.append("&product_id="+productid);
 		url.append("&server_id="+serverid);
-		url.append("&server_name="+servername);
+		try {
+			url.append("&server_name="+URLEncoder.encode(servername, "UTF-8"));
+		} catch (Exception e){
+			url.append("&server_name="+servername);
+		}
 		url.append("&rolename="+rolename);
 		url.append("&order_type="+orderType);
 		url.append("&sign="+MD5Encrypt.StringToMD5(PhoneInfo.instance().gamecode+productid+BasesApplication.PUBLICKEY));
@@ -426,7 +430,7 @@ public class HttpService {
 	 */
 	public void getOrderList(int type, final int pageNo, final int pageSize, final CallbackResultForActivity callback){
 		StringBuffer sb = getUrl("a=Order&m=OrderList");
-		sb.append("&uid="+BasesApplication.userInfo.uid);
+//		sb.append("&uid="+BasesApplication.userInfo.uid);
 		sb.append("&date_type="+type);
 		sb.append("&cur_page="+pageNo);
 		sb.append("&every_page_count="+pageSize);
@@ -458,7 +462,7 @@ public class HttpService {
 	}
 	public void getOrderInfoByID(String orderId, final CallbackResultForActivity callback){
 		StringBuffer sb = getUrl("a=Order&m=OrderInfo");
-		sb.append("&uid="+BasesApplication.userInfo.uid);
+//		sb.append("&uid="+BasesApplication.userInfo.uid);
 		sb.append("&order_id="+orderId);
 		sb.append("&sign="+MD5Encrypt.StringToMD5(BasesApplication.userInfo.uid+orderId+MyApplication.PUBLICKEY));
 		new BasesDao().post(sb.toString(), null, new Response.Listener<String>() {
@@ -485,13 +489,20 @@ public class HttpService {
 	}
 	public void getOrderInfoByQR(String data, final CallbackResultForActivity callback){
 		StringBuffer sb = getUrl("a=Order&m=QrcodePlaceOrder");
-		sb.append("&uid="+BasesApplication.userInfo.uid);//"100002155542648");//
+
+		Map<String, String> paras = new HashMap<>();
+		String orderinfo = "";
 		try{
-			sb.append("&order_info="+ URLEncoder.encode(data, "UTF-8"));
+			orderinfo =URLEncoder.encode(data, "UTF-8");
 		}catch (Exception e){}
+		paras.put("order_info", orderinfo);
+
+//		try{
+//			sb.append("&order_info="+ URLEncoder.encode(data, "UTF-8"));
+//		}catch (Exception e){}
 
 		sb.append("&sign="+MD5Encrypt.StringToMD5(BasesApplication.userInfo.uid+MyApplication.PUBLICKEY));
-		new BasesDao().post(sb.toString(), null, new Response.Listener<String>() {
+		new BasesDao().post(sb.toString(), paras, new Response.Listener<String>() {
 			@Override
 			public void onResponse(String s) {
 				OrderInfo info = null;
@@ -517,7 +528,7 @@ public class HttpService {
 	}
 	public void getOrderInfoByInput(String orderid, final CallbackResultForActivity callback){// 手动输入订单号
 		StringBuffer sb = getUrl("a=Order&m=InputPlaceOrder");
-		sb.append("&uid="+BasesApplication.userInfo.uid);//"100002155542648");//
+//		sb.append("&uid="+BasesApplication.userInfo.uid);//"100002155542648");//
 		sb.append("&order_id="+ orderid);
 
 		sb.append("&sign="+MD5Encrypt.StringToMD5(BasesApplication.userInfo.uid+MyApplication.PUBLICKEY));
@@ -547,7 +558,7 @@ public class HttpService {
 	}
 	public void deleteOrderByID(String id, String type, final CallbackResultForActivity callback){
 		StringBuffer sb = getUrl("a=Order&m=OrderStatus");
-		sb.append("&uid="+BasesApplication.userInfo.uid);
+//		sb.append("&uid="+BasesApplication.userInfo.uid);
 		sb.append("&order_id="+id);
 		sb.append("&operate_type="+type);
 		sb.append("&sign="+MD5Encrypt.StringToMD5(BasesApplication.userInfo.uid+id+MyApplication.PUBLICKEY));
@@ -641,9 +652,9 @@ public class HttpService {
 		paras.put("order_id",p.getOrderId());
 		paras.put("token", p.getToken());
 		paras.put("product_id",p.getSku());
-		paras.put("uid",info[0]);
+		paras.put("order_uid",info[0]);
 		paras.put("sid",info[1]);
-		paras.put("stype",BasesApplication.userInfo.serverType);
+		paras.put("stype","");
 		if(info.length >= 7)
 			paras.put("oas_orderid",info[6]);
 
@@ -674,7 +685,6 @@ public class HttpService {
 				callback.exception(new BasesNetworkErrorException(""));
 			}
 		});
-		String result = "";
 //		result = HttpDao.instance().submit(new RequestEntity(url.toString(), true));
 //		BasesUtils.logDebug("OAS-HttpService", "checkPurchaseForGoogle() return result:" + result);
 //		try {
@@ -706,7 +716,7 @@ public class HttpService {
 
 		StringBuffer url = getUrl("a=System&m=GetServersRole");
 
-		url.append("&uid=" + BasesApplication.userInfo.uid);//"20000005619435");//
+//		url.append("&uid=" + BasesApplication.userInfo.uid);//"20000005619435");//
 		url.append("&ostype=android");
 		url.append("&sign=" + MD5Encrypt.StringToMD5(PhoneInfo.instance().gamecode + BasesApplication.PUBLICKEY));
 		BasesUtils.logError(TAG, url.toString());
@@ -746,7 +756,6 @@ public class HttpService {
 
 		StringBuffer url = new StringBuffer("a=pay&m=setPayWish");
 		url.append("&sid="+BasesApplication.userInfo.serverID);
-		url.append("&uid="+BasesApplication.userInfo.uid);
 		url.append("&roleid="+BasesApplication.userInfo.roleID);
 		url.append("&wcode=" + code);
 		url.append("&token=" + BasesApplication.userInfo.token);
@@ -775,7 +784,6 @@ public class HttpService {
 	public PayHistoryList paymentLog(int page, int page_size) throws BasesNetworkErrorException, JSONException{
 		StringBuffer url = new StringBuffer("http://pay.oasgames.com/oasadmin/api/getRechargeOrders.php?msg=getRecharge");
 		String uid = BasesApplication.userInfo.uid;//"200000053568227";//
-		url.append("&uid="+uid);
 		url.append("&page="+page);
 		url.append("&page_size="+page_size);
 		
@@ -809,8 +817,7 @@ public class HttpService {
 		
 		url.append("&server_id=" + BasesApplication.userInfo.serverID);
 		url.append("&role_id="+BasesApplication.userInfo.roleID);
-		url.append("&uid="+BasesApplication.userInfo.uid);
-		
+
 		url.append("&sign="+MD5Encrypt.StringToMD5(PhoneInfo.instance().gamecode+BasesApplication.userInfo.serverID+BasesApplication.userInfo.uid+BasesApplication.PUBLICKEY));
 		String res = "";
 //		res = HttpDao.instance().submit(getOldUrl(url.toString()));
@@ -855,16 +862,16 @@ public class HttpService {
 			main = PhoneInfo.instance().getIpToCountryWithHttp();
 		}
 
-		new BasesDao().postMdata("http://"+main+"mdata.cool/mdata.php", info.content, new Response.Listener<String>() {
+		new BasesDao().postMdata("http://" + main + "mdata.cool/mdata.php", info.content, new Response.Listener<String>() {
 			@Override
 			public void onResponse(String s) {
-				BasesUtils.logError(TAG, "sendToMdataInfo:success.eventName="+info.eventName+";"+s);
+				BasesUtils.logError(TAG, "sendToMdataInfo:success.eventName=" + info.eventName + ";" + s);
 			}
 		}, new Response.ErrorListener() {
 			@Override
 			public void onErrorResponse(VolleyError volleyError) {
 
-				BasesUtils.logError(TAG, "sendToMdataInfo:exception."+info.eventName);
+				BasesUtils.logError(TAG, "sendToMdataInfo:exception." + info.eventName);
 			}
 		});
 	}
@@ -890,5 +897,9 @@ public class HttpService {
 	private StringBuffer getUrl(String url){
 		StringBuffer sb = new StringBuffer("http://arapp.mobile.test.oasgames.com/?"+url);
 		return sb.append(PhoneInfo.instance().toString());
+	}
+	private StringBuffer getUrlForLogin(String url){
+		StringBuffer sb = new StringBuffer("http://arapp.mobile.test.oasgames.com/?"+url);
+		return sb.append(PhoneInfo.instance().toStringForLogin());
 	}
 }

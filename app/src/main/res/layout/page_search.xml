@@ -184,6 +184,7 @@
             <include layout="@layout/page_search_result_list_empty"
                 android:id="@+id/search_result_list_empty"/>
         </FrameLayout>
+        <include layout="@layout/common_waiting_anim"/>
         <include layout="@layout/common_network_error"/>
     </FrameLayout>
 

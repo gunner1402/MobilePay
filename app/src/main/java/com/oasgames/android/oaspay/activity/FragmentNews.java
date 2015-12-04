@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.base.tools.http.CallbackResultForActivity;
+import com.base.tools.utils.BasesUtils;
 import com.oasgames.android.oaspay.R;
 import com.oasgames.android.oaspay.adapter.AdapterNewsList;
 import com.oasgames.android.oaspay.entity.NewsInfo;
@@ -26,21 +27,26 @@ public class FragmentNews extends Fragment {
 	ListView listView;
 	AdapterNewsList adapter;
 
+	View root;
+
 	NewsList list = null;
 	boolean isLoading = false;
 	View main_news_wait;
+	View networkError;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-		return inflater.inflate(R.layout.fragment_main_news, null);
+		root = inflater.inflate(R.layout.fragment_main_news, null);
+		return root;
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-
+		root.findViewById(R.id.common_head_tool).setVisibility(View.INVISIBLE);
 		main_news_wait = getActivity().findViewById(R.id.main_news_wait);
+		networkError = getActivity().findViewById(R.id.main_news_network_error);
 
 		listView = (ListView)getActivity().findViewById(R.id.main_news_list);
 		adapter = new AdapterNewsList(this, new ArrayList<NewsInfo>(), 1, null);
@@ -48,6 +54,8 @@ public class FragmentNews extends Fragment {
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if(BasesUtils.isFastDoubleClick())
+					return;
 				startActivity(new Intent().setClass(getActivity(), ActivityNewsDetails.class).putExtra("link", adapter.getItem(position).detail_url));
 			}
 		});
@@ -61,6 +69,7 @@ public class FragmentNews extends Fragment {
 	}
 
 	private void loadNews(){
+		main_news_wait.setVisibility(View.VISIBLE);
 		HttpService.instance().getNewsList((list==null|| TextUtils.isEmpty(list.cur_page))?1:Integer.valueOf(list.cur_page) + 1, PAGESIZE, new MyCallBack());
 	}
 	public void loadMoreNews(){
@@ -95,6 +104,16 @@ public class FragmentNews extends Fragment {
 		public void fail(int statusCode, String msg) {
 			main_news_wait.setVisibility(View.INVISIBLE);
 			isLoading = false;
+			if(list == null) {
+				networkError.setVisibility(View.VISIBLE);
+				networkError.findViewById(R.id.common_network_retry).setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						networkError.setVisibility(View.INVISIBLE);
+						loadNews();
+					}
+				});
+			}
 		}
 
 		@Override
@@ -103,11 +122,11 @@ public class FragmentNews extends Fragment {
 			isLoading = false;
 
 			if(list == null) {
-				View netError = getActivity().findViewById(R.id.main_news_network_error);
-				netError.setVisibility(View.VISIBLE);
-				netError.findViewById(R.id.common_network_retry).setOnClickListener(new View.OnClickListener() {
+				networkError.setVisibility(View.VISIBLE);
+				networkError.findViewById(R.id.common_network_retry).setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
+						networkError.setVisibility(View.INVISIBLE);
 						loadNews();
 					}
 				});

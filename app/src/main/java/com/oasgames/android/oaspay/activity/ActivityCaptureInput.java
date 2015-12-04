@@ -1,11 +1,13 @@
 package com.oasgames.android.oaspay.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.base.tools.activity.BasesActivity;
@@ -28,9 +30,13 @@ public class ActivityCaptureInput extends BasesActivity {
         setContentView(R.layout.page_capture_input);
         initHead(true, true, null, false, getString(R.string.capture_scan_text2_3), false, null);
         et_orderID = (EditText)findViewById(R.id.capture_input_edit);
+
+        setWaitScreen(false);
     }
 
     public void onClickViewToInput(View view){
+        if(BasesUtils.isFastDoubleClick())
+            return;
         check();
     }
     private void check(){
@@ -45,6 +51,9 @@ public class ActivityCaptureInput extends BasesActivity {
             BasesUtils.showMsg(this, getString(R.string.capture_scan_text6));
             return;
         }
+
+        InputMethodManager imm = (InputMethodManager)et_orderID.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(et_orderID.getWindowToken(), 0);
 
         if(BasesUtils.isLogin())
             GetOrderInfo(orderid);
@@ -103,8 +112,9 @@ public class ActivityCaptureInput extends BasesActivity {
                     }
                 }, "", null);
                 return;
-            }else {
-                BasesUtils.showDialogBySystemUI(activity, getString(R.string.capture_scan_text5), getString(R.string.search_title_sub2), new DialogInterface.OnClickListener() {
+            }
+            if(!TextUtils.isEmpty(msg) && "-22".equals(msg)){// 不是google订单
+                BasesUtils.showDialogBySystemUI(activity, getResources().getString(R.string.capture_scan_text7), getString(R.string.search_title_sub2), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
@@ -112,7 +122,23 @@ public class ActivityCaptureInput extends BasesActivity {
                 }, "", null, "", null);
                 return;
             }
-//            APPUtils.showErrorMessageByErrorCode(activity, "-2000");
+            if(!TextUtils.isEmpty(msg) && "-23".equals(msg)){// 订单不存在
+                BasesUtils.showDialogBySystemUI(activity, getResources().getString(R.string.order_list_item_label9), "", null, getString(R.string.search_title_sub2), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }, "", null);
+                return;
+            }
+                BasesUtils.showDialogBySystemUI(activity, getString(R.string.capture_scan_text5), getString(R.string.search_title_sub2), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }, "", null, "", null);
+                return;
+
         }
 
         @Override

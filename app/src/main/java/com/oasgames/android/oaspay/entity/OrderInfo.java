@@ -40,6 +40,8 @@ public class OrderInfo implements Serializable{
 	public String create_time;		//下单时间
 	public String pay_time;			//完成支付时间
 
+	public String ostype;			//支付所需的系统类型
+
 
 	public void setUid(String uid) {
 		this.uid = uid;
@@ -131,5 +133,9 @@ public class OrderInfo implements Serializable{
 
 	public void setExchange_code(String exchange_code) {
 		this.exchange_code = exchange_code;
+	}
+
+	public void setOstype(String ostype) {
+		this.ostype = ostype;
 	}
 }

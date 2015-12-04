@@ -342,7 +342,7 @@ public class ActivityGooglePlayBilling extends BasesActivity {
     		isPageCloseHandler();
     		return;
 		}
-		setWaitScreen(true);
+		setWaitScreen(false);
 
         /* TODO: for security, generate your payload here for verification. See the comments on
          *        verifyDeveloperPayload() for more info. Since this is a SAMPLE, we just use
@@ -483,7 +483,7 @@ public class ActivityGooglePlayBilling extends BasesActivity {
 					if (GoogleBillingUtils.deletePurchase(p.getOrderId()) <= 0) {// 消费成功，删除数据库记录
 						BasesUtils.logError(TAG, "delete by orderid=" + p.getOrderId());
 					}
-					if(code.equals(PAY_GOON)){
+					if(!isPageClose() && code.equals(PAY_GOON)){
 						myHandler.sendEmptyMessage(HANDLER_QUERYINVENTORY);
 						return;
 					}
@@ -503,6 +503,7 @@ public class ActivityGooglePlayBilling extends BasesActivity {
      * 二次服务器验证
      */
     private void check(Purchase purchase, String type){
+		setWaitScreen(true);
 		HttpService.instance().checkPurchaseForGoogle(purchase, GoogleBillingUtils.SEPARATE, new GoogleCheck(purchase, type));
 
 //    	* 			1000001:验证信息错误（key无效）
@@ -541,14 +542,17 @@ public class ActivityGooglePlayBilling extends BasesActivity {
 				return;
 			}
 
-			consume(purchase, type);// 消耗当前商品
+			if(!isPageClose())
+				consume(purchase, type);// 消耗当前商品
 		}
 
 		@Override
 		public void fail(int statusCode, String msg) {
 //			consume(purchase, type);// 发钻失败，意味着服务端已收到消息，估要执行consume
 			((MyApplication)getApplication()).isReLoadOderList = true;
-			APPUtils.showErrorMessageByErrorCode(ActivityGooglePlayBilling.this, "-2000");
+			if(!isPageClose()) {
+				APPUtils.showErrorMessageByErrorCode(ActivityGooglePlayBilling.this, "-2000");
+			}
 			close();// 先暂时close，后续决定是否添加重试功能
 		}
 
@@ -557,7 +561,9 @@ public class ActivityGooglePlayBilling extends BasesActivity {
 //			showNetWrokError();
 //			check(purchase, type);
 			((MyApplication)getApplication()).isReLoadOderList = true;
-			APPUtils.showErrorMessageByErrorCode(ActivityGooglePlayBilling.this, "-2000");
+			if(!isPageClose()) {
+				APPUtils.showErrorMessageByErrorCode(ActivityGooglePlayBilling.this, "-2000");
+			}
 			close();// 先暂时close，后续决定是否添加重试功能
 		}
 	}
@@ -641,7 +647,7 @@ public class ActivityGooglePlayBilling extends BasesActivity {
      * 当页面被用户关闭后，不再做其他操作
      */
     private void isPageCloseHandler(){
-    	myHandler.sendEmptyMessage(-1);
+//    	myHandler.sendEmptyMessage(-1);
     	setResultInfo(BasesConstant.RESULT_CANCEL, "用户取消操作");
     }
 

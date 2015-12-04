@@ -41,6 +41,7 @@ public class ActivityOrderListSlide extends BasesActivity {
 
     Map<Integer, OrderList> map_type;// key为type，value为该type下的数据
 
+    public Toast toast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +62,7 @@ public class ActivityOrderListSlide extends BasesActivity {
         mSlideListViewHistory = ((SlideListView) findViewById(R.id.list_view));
         mSlideListViewMonth = ((SlideListView) findViewById(R.id.list_view_month));
 
+        toast = Toast.makeText(this, "", Toast.LENGTH_LONG);
     }
 
     @Override
@@ -80,23 +82,25 @@ public class ActivityOrderListSlide extends BasesActivity {
         orderList.list = new ArrayList<>();
         orderList.setTotal_page("0");
         orderList.setCur_page("0");
-        orderList.setEvery_page_count(""+PAGESIZE);
+        orderList.setEvery_page_count("" + PAGESIZE);
         map_type.put(TYPE_HISTORY, orderList);
 
-        mAdapterHistory = new AdapterOrderListSlide(this, orderList);
+        mAdapterHistory = new AdapterOrderListSlide(this, orderList.list);
         mSlideListViewHistory.setAdapter(mAdapterHistory);
         mSlideListViewHistory.setOnItemClickListener(new MyOnItemClickLisnter());
+        mSlideListViewHistory.setEmptyView(findViewById(R.id.order_list_slide_empty));
 
         orderList = new OrderList();
         orderList.list = new ArrayList<>();
         orderList.setTotal_page("0");
         orderList.setCur_page("0");
-        orderList.setEvery_page_count(""+PAGESIZE);
+        orderList.setEvery_page_count("" + PAGESIZE);
         map_type.put(TYPE_MONTH, orderList);
 
-        mAdapterMonth = new AdapterOrderListSlide(this, orderList);
+        mAdapterMonth = new AdapterOrderListSlide(this, orderList.list);
         mSlideListViewMonth.setAdapter(mAdapterMonth);
         mSlideListViewMonth.setOnItemClickListener(new MyOnItemClickLisnter());
+        mSlideListViewMonth.setEmptyView(findViewById(R.id.order_list_slide_empty));
         ((MyApplication)getApplication()).isReLoadOderList = false;// 设置为false，表示重新获取过数据一次
     }
     private void reLoadData(){
@@ -110,11 +114,19 @@ public class ActivityOrderListSlide extends BasesActivity {
         HttpService.instance().getOrderList(currentType, Integer.valueOf(cur.cur_page) + 1, PAGESIZE, new MyCallBack());
     }
     public void loadMore(){
+        OrderList list = map_type.get(currentType);
+        if(Integer.valueOf(list.total_page) <= Integer.valueOf(list.cur_page))
+            return;
+        if(Integer.valueOf(list.cur_page) > 1){
+            toast.setText(getString(R.string.order_list_item_label11));
+            toast.show();
+            return;
+        }
         if(isLoadMore)
             return;
         isLoadMore = true;
         OrderList cur = map_type.get(currentType);
-        if(Integer.valueOf(cur.total_page) > Integer.valueOf(cur.cur_page)){
+        if(Integer.valueOf(cur.total_page) <= Integer.valueOf(cur.cur_page)){
             isLoadMore = false;
             return;
         }
@@ -134,13 +146,13 @@ public class ActivityOrderListSlide extends BasesActivity {
             mSlideListViewHistory.setVisibility(View.VISIBLE);
             mSlideListViewMonth.setVisibility(View.INVISIBLE);
 
-            mAdapterHistory.mData = cur;
+            mAdapterHistory.list = cur.list;
             mAdapterHistory.notifyDataSetChanged();
         }else if(currentType == TYPE_MONTH) {
             mSlideListViewMonth.setVisibility(View.VISIBLE);
             mSlideListViewHistory.setVisibility(View.INVISIBLE);
 
-            mAdapterMonth.mData = cur;
+            mAdapterMonth.list = cur.list;
             mAdapterMonth.notifyDataSetChanged();
         }
 
@@ -157,7 +169,7 @@ public class ActivityOrderListSlide extends BasesActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             OrderInfo order = (OrderInfo) parent.getAdapter().getItem(position);
-            topay(order, position, 1);
+            toPay(order, position, 1);
         }
     }
     class MyCallBack implements CallbackResultForActivity{
@@ -223,8 +235,10 @@ public class ActivityOrderListSlide extends BasesActivity {
      * @param view
      */
     public void toproduct_list(View view){
+        Intent in = new Intent();
+        in.putExtra("requestcode", 111);
+        setResult(Activity.RESULT_OK, in);
         finish();
-        startActivity(new Intent().setClass(this, ActivityProductList.class));
     }
 
     public void showCancelDialog(final int position){
@@ -259,9 +273,9 @@ public class ActivityOrderListSlide extends BasesActivity {
         setWaitScreen(true);
         OrderInfo info = null;
         if(currentType == TYPE_MONTH){
-            info = (OrderInfo)mAdapterMonth.mData.list.get(position);
+            info = (OrderInfo)mAdapterMonth.getItem(position);
         }else  if(currentType == TYPE_HISTORY){
-            info = (OrderInfo)mAdapterHistory.mData.list.get(position);
+            info = (OrderInfo)mAdapterHistory.getItem(position);
         }
         HttpService.instance().deleteOrderByID(info.order_id, operate_type, new DeleteOrderCallback(this, info, position));
     }
@@ -277,25 +291,8 @@ public class ActivityOrderListSlide extends BasesActivity {
         }
         @Override
         public void success(Object data, int statusCode, String msg) {
+            updateListForDelete(position, info);
             setWaitScreen(false);
-//            if(currentType == TYPE_MONTH){
-//                mAdapterMonth.mData.list.remove(position);
-//                mAdapterMonth.notifyDataSetChanged();
-//                if(mAdapterMonth.mData.list.isEmpty())
-//                    findViewById(R.id.order_list_slide_empty).setVisibility(View.VISIBLE);
-//                else
-//                    findViewById(R.id.order_list_slide_empty).setVisibility(View.GONE);
-//            }else  if(currentType == TYPE_HISTORY){
-//                mAdapterHistory.mData.list.remove(position);
-//                mAdapterHistory.notifyDataSetChanged();
-//                if(mAdapterHistory.mData.list.isEmpty())
-//                    findViewById(R.id.order_list_slide_empty).setVisibility(View.VISIBLE);
-//                else
-//                    findViewById(R.id.order_list_slide_empty).setVisibility(View.GONE);
-//            }
-            updateListForDelete(position);
-
-
         }
 
         @Override
@@ -310,28 +307,54 @@ public class ActivityOrderListSlide extends BasesActivity {
             BasesUtils.showMsg(c, c.getString(R.string.common_nowifi));
         }
     }
-    private void updateListForDelete(int position){
+    private void updateListForDelete(int position, OrderInfo info){
         if(currentType == TYPE_MONTH){
-            mAdapterMonth.mData.list.remove(position);
+            OrderList list = map_type.get(currentType);
+            list.list.remove(position);
+            mAdapterMonth = new AdapterOrderListSlide(this, list.list);
+            mSlideListViewMonth.setAdapter(mAdapterMonth);
+            mSlideListViewMonth.setEmptyView(findViewById(R.id.order_list_slide_empty));
             mAdapterMonth.notifyDataSetChanged();
-            if(mAdapterMonth.mData.list.isEmpty())
-                findViewById(R.id.order_list_slide_empty).setVisibility(View.VISIBLE);
-            else
-                findViewById(R.id.order_list_slide_empty).setVisibility(View.GONE);
+
+            list = map_type.get(TYPE_HISTORY);// 订单已删除或取消，需要同步历史订单
+            if(list != null && list.list != null && list.list.size() > 0){
+                int size = list.list.size();
+                for (int i = 0; i < size; i++) {
+                    OrderInfo orderInfo = (OrderInfo)list.list.get(i);
+                    if(orderInfo.order_id.equals(info.order_id)) {
+                        list.list.remove(i);
+                        break;
+                    }
+                }
+            }
         }else  if(currentType == TYPE_HISTORY){
-            mAdapterHistory.mData.list.remove(position);
+            OrderList list = map_type.get(currentType);
+            list.list.remove(position);
+
+            mAdapterHistory = new AdapterOrderListSlide(this, list.list);
+            mSlideListViewHistory.setAdapter(mAdapterHistory);
+            mSlideListViewHistory.setEmptyView(findViewById(R.id.order_list_slide_empty));
             mAdapterHistory.notifyDataSetChanged();
-            if(mAdapterHistory.mData.list.isEmpty())
-                findViewById(R.id.order_list_slide_empty).setVisibility(View.VISIBLE);
-            else
-                findViewById(R.id.order_list_slide_empty).setVisibility(View.GONE);
+
+            list = map_type.get(TYPE_MONTH);// 订单已删除或取消，需要同步当月订单
+            if(list != null && list.list != null && list.list.size() > 0){
+                int size = list.list.size();
+                for (int i = 0; i < size; i++) {
+                    OrderInfo orderInfo = (OrderInfo)list.list.get(i);
+                    if(orderInfo.order_id.equals(info.order_id)) {
+                        list.list.remove(i);
+                        break;
+                    }
+                }
+            }
         }
+
     }
     /**
      * 继续支付、点击列表每个Item触发
      * @param info
      */
-    public void topay(OrderInfo info, int position, int type){
+    public void toPay(OrderInfo info, int position, int type){
         setWaitScreen(true);
         HttpService.instance().getOrderInfoByID(info.order_id, new GetOrderInfoCallback(position, type));
     }
@@ -353,7 +376,7 @@ public class ActivityOrderListSlide extends BasesActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
-                        updateListForDelete(position);
+                        updateListForDelete(position, info);
                     }
                 }, "", null, "", null);
                 return;
@@ -364,19 +387,35 @@ public class ActivityOrderListSlide extends BasesActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                         if(currentType == TYPE_MONTH){
-                            mAdapterMonth.mData.list.add(position, info);
+                            mAdapterMonth.list.set(position, info);
                             mAdapterMonth.notifyDataSetChanged();
-                            if(mAdapterMonth.mData.list.isEmpty())
-                                findViewById(R.id.order_list_slide_empty).setVisibility(View.VISIBLE);
-                            else
-                                findViewById(R.id.order_list_slide_empty).setVisibility(View.GONE);
-                        }else  if(currentType == TYPE_HISTORY){
-                            mAdapterHistory.mData.list.add(position, info);
+
+                            OrderList list = map_type.get(TYPE_HISTORY);// 订单支付完成，需要同步历史订单
+                            if(list != null && list.list != null && list.list.size() > 0){
+                                int size = list.list.size();
+                                for (int i = 0; i < size; i++) {
+                                    OrderInfo orderInfo = (OrderInfo)list.list.get(i);
+                                    if(orderInfo.order_id.equals(info.order_id)) {
+                                        list.list.set(i, info);
+                                        break;
+                                    }
+                                }
+                            }
+                        }else if(currentType == TYPE_HISTORY){
+                            mAdapterHistory.list.set(position, info);
                             mAdapterHistory.notifyDataSetChanged();
-                            if(mAdapterHistory.mData.list.isEmpty())
-                                findViewById(R.id.order_list_slide_empty).setVisibility(View.VISIBLE);
-                            else
-                                findViewById(R.id.order_list_slide_empty).setVisibility(View.GONE);
+
+                            OrderList list = map_type.get(TYPE_MONTH);// 订单支付完成，需要同步当月订单
+                            if(list != null && list.list != null && list.list.size() > 0){
+                                int size = list.list.size();
+                                for (int i = 0; i < size; i++) {
+                                    OrderInfo orderInfo = (OrderInfo)list.list.get(i);
+                                    if(orderInfo.order_id.equals(info.order_id)) {
+                                        list.list.set(i, info);
+                                        break;
+                                    }
+                                }
+                            }
                         }
                     }
                 }, "", null, "",null);

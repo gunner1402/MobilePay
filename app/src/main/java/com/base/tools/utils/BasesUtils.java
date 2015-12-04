@@ -791,4 +791,20 @@ public class BasesUtils {
 		canvas.drawBitmap(bitmap, rect, rect, paint);
 		return output;
 	}
+	private static long lastClickTime;
+
+	/**
+	 * 判断是否快速重复点击
+	 * 小于500毫秒记为重复点击
+	 * @return
+	 */
+	public static boolean isFastDoubleClick() {
+		long time = System.currentTimeMillis();
+		long timeD = time - lastClickTime;
+		if ( 0 < timeD && timeD < 500) {
+			return true;
+		}
+		lastClickTime = time;
+		return false;
+	}
 }

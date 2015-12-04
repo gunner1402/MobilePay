@@ -1,5 +1,6 @@
 package com.oasgames.android.oaspay.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -39,6 +40,7 @@ public class ActivityMain extends FragmentActivity {
 	public final int FRAGMENT_SHOP = 0;
 	public final int FRAGMENT_NEWS = 1;
 	public final int FRAGMENT_MINE = 2;
+	public final int REQUESTCODE = 111;
 	private int curFragment = 0;
 
 	Toast toast;
@@ -83,10 +85,10 @@ public class ActivityMain extends FragmentActivity {
 		setOnListener();// 设置监听事件
 
 		try {
-			GoogleBillingUtils.GoogleBillingTimer.schedule(new GoogleBillingTimer(), 10000, 30000);
+			GoogleBillingUtils.GoogleBillingTimer.schedule(new GoogleBillingTimer(), 10000, 2000);
 		} catch (Exception e) {
 			GoogleBillingUtils.GoogleBillingTimer = new Timer();
-			GoogleBillingUtils.GoogleBillingTimer.schedule(new GoogleBillingTimer(), 10000, 2);
+			GoogleBillingUtils.GoogleBillingTimer.schedule(new GoogleBillingTimer(), 10000, 2000);
 		}
 		try {
 			ReportUtils.reportTimer.schedule(new ReportTimer(), 10000, 30000);
@@ -97,7 +99,21 @@ public class ActivityMain extends FragmentActivity {
 
 		reportEvent();// 初始化默认上报一次
 	}
-    private void init(){
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(data != null){
+			int code = data.getIntExtra("requestcode", 0);
+
+			if(code == REQUESTCODE && resultCode == Activity.RESULT_OK){// 确定是从 订单页面 “去逛逛”返回
+				if(curFragment != FRAGMENT_SHOP)
+					tabGroup.check(R.id.main_tab_0);
+			}
+		}
+	}
+
+	private void init(){
     	tabGroup = (RadioGroup) findViewById(R.id.main_tab_group);
 		tabGroup.check(R.id.main_tab_0);
 		RadioButton btn0 = ((RadioButton) tabGroup.getChildAt(0));
@@ -119,6 +135,8 @@ public class ActivityMain extends FragmentActivity {
     }
 
 	public void onClickView(View view){
+		if(BasesUtils.isFastDoubleClick())
+			return;
 		switch (view.getId()){
 			case R.id.common_head_back:
 				break;
@@ -127,7 +145,7 @@ public class ActivityMain extends FragmentActivity {
 				break;
 			case R.id.fragment_shop_function_order_layout:
 				if(BasesUtils.isLogin()) {
-					startActivity(new Intent().setClass(this, ActivityOrderListSlide.class));
+					startActivityForResult(new Intent().setClass(this, ActivityOrderListSlide.class), REQUESTCODE);
 					ReportUtils.add(ReportUtils.DEFAULTEVENT_FMENUTMYLIST, null, null);
 				}else
 					startActivity(new Intent().setClass(this, ActivityLogin.class));
@@ -153,11 +171,11 @@ public class ActivityMain extends FragmentActivity {
 			case R.id.fragment_shop_category_review_more:
 				startActivity(new Intent().setClass(this, ActivityProductList.class).putExtra("product_type", "3"));
 				break;
-			case R.id.fragment_mine_head_touxiang:
-				if(BasesUtils.isLogin())
-					return;
-				startActivity(new Intent().setClass(this, ActivityLogin.class));
-				break;
+//			case R.id.fragment_mine_head_touxiang:
+//				if(BasesUtils.isLogin())
+//					return;
+//				startActivity(new Intent().setClass(this, ActivityLogin.class));
+//				break;
 //			case R.id.fragment_mine_exit:
 //				((MyApplication)getApplication()).clearUserInfo();
 //				((FragmentMine)mSectionsPagerAdapter.getItem(FRAGMENT_MINE)).updateUserInfo();

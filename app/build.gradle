@@ -8,7 +8,7 @@ android {
         minSdkVersion 11
         targetSdkVersion 21
         versionCode 3
-        versionName "1.0.0"
+        versionName "1.0.2"
     }
     buildTypes {
         release {
@@ -17,6 +17,10 @@ android {
         }
     }
     productFlavors {
+//        flavors_release{
+//                    manifestPlaceholders = [str:"releaseStr",package_name:"com.oasgames.android.oaspay"]
+//                    applicationId "com.oasgames.android.oaspay"
+//        }
     }
 }
 

@@ -1,6 +1,7 @@
 package com.oasgames.android.oaspay.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +12,21 @@ import com.base.tools.slide.SlideBaseAdapter;
 import com.base.tools.slide.SlideListView.SlideMode;
 import com.base.tools.utils.BasesUtils;
 import com.oasgames.android.oaspay.R;
+import com.oasgames.android.oaspay.activity.ActivityOrderDetails;
 import com.oasgames.android.oaspay.activity.ActivityOrderListSlide;
 import com.oasgames.android.oaspay.entity.OrderInfo;
-import com.oasgames.android.oaspay.entity.OrderList;
+
+import java.util.List;
 
 public class AdapterOrderListSlide extends SlideBaseAdapter {
-	public OrderList mData;
+//	public OrderList mData;
 	private ActivityOrderListSlide activity;
+	public List<OrderInfo> list;
 
-	public AdapterOrderListSlide(Context context, OrderList data) {
+	public AdapterOrderListSlide(Context context, List data) {
 		super(context);
 		activity = (ActivityOrderListSlide)context;
-		mData = data;
+		list = data;
 	}
 
 	
@@ -70,12 +74,12 @@ public class AdapterOrderListSlide extends SlideBaseAdapter {
 
 	@Override
 	public int getCount() {
-		return mData.list.size();
+		return list.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return mData.list.get(position);
+		return list.get(position);
 	}
 
 	@Override
@@ -85,7 +89,7 @@ public class AdapterOrderListSlide extends SlideBaseAdapter {
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		if(position == getCount()-1 && Integer.valueOf(mData.total_page) > Integer.valueOf(mData.cur_page)){
+		if(position == getCount()-1){
 			activity.loadMore();
 		}
 		ViewHolder holder = null;
@@ -136,7 +140,7 @@ public class AdapterOrderListSlide extends SlideBaseAdapter {
 			holder.diamondBg.setVisibility(View.VISIBLE);
 		}
 
-		if("1".equals(info.pay_status))
+		if(!"2".equals(info.pay_status))
 			holder.topay.setVisibility(View.VISIBLE);
 		else
 			holder.topay.setVisibility(View.GONE);
@@ -144,19 +148,29 @@ public class AdapterOrderListSlide extends SlideBaseAdapter {
 			holder.topay.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					activity.topay(info, position, 0);
+					activity.toPay(info, position, 0);
 				}
 			});
 		}
 
-		if (holder.cancel != null) {
+		if(!"2".equals(info.pay_status)){
+			holder.cancel.setText(R.string.order_list_item_label3);
 			holder.cancel.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					activity.showCancelDialog(position);
 				}
 			});
+		}else{
+			holder.cancel.setText(R.string.order_details_title);
+			holder.cancel.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					activity.startActivity(new Intent().setClass(activity, ActivityOrderDetails.class).putExtra("orderinfo", info));
+				}
+			});
 		}
+
 		if (holder.delete != null) {
 			holder.delete.setOnClickListener(new View.OnClickListener() {
 				@Override

@@ -4,6 +4,7 @@
 package com.oasgames.android.oaspay.tools;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +65,7 @@ public class APPUtils {
      * @return
      */
     public static long insertToSearchHistory(String keyword){
-
+        SearchUtil.deleteIfExist(keyword);
         return SearchUtil.insert(keyword);
     }
 
@@ -76,8 +77,12 @@ public class APPUtils {
      * @param errorCode
      */
     public static void showErrorMessageByErrorCode(Activity activity, String errorCode){
-        ;
-        BasesUtils.showMsg(activity, activity.getString(BasesUtils.getResourceValue(activity, "string", "common_error_notice" + errorCode.replace("-", "_"))));
+        String str = "";
+        try{
+            str = activity.getString(BasesUtils.getResourceValue(activity, "string", "common_error_notice" + errorCode.replace("-", "_")));
+        }catch (Exception e){}
+        if(!TextUtils.isEmpty(str))
+            BasesUtils.showMsg(activity, str);
     }
 
     /**

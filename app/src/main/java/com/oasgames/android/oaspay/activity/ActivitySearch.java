@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.base.tools.activity.BasesActivity;
 import com.base.tools.http.CallbackResultForActivity;
+import com.base.tools.utils.BasesUtils;
 import com.oasgames.android.oaspay.R;
 import com.oasgames.android.oaspay.adapter.AdapterProdcutList;
 import com.oasgames.android.oaspay.adapter.AdapterSearchHistoryList;
@@ -91,19 +92,23 @@ public class ActivitySearch extends BasesActivity {
         listViewResult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(BasesUtils.isFastDoubleClick())
+                    return;
                 startActivity(new Intent().setClass(ActivitySearch.this, ActivityProductDetails.class).putExtra("id", adapterSearchResult.getItem(position).product_id));
             }
         });
         loadDefaultKeyword();
     }
     public void onClickViewToSearch(View view){
+        if(isLoading)
+            return;
+        if(BasesUtils.isFastDoubleClick())
+            return;
         keyword = searchEditText.getText().toString().trim();
 
         if(!TextUtils.isEmpty(keyword)){
             InputMethodManager imm = (InputMethodManager)searchEditText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
-
-            APPUtils.insertToSearchHistory(keyword);
 
             loadSearchResult("1");//每次搜索时，默认为第一页
         }
@@ -111,10 +116,11 @@ public class ActivitySearch extends BasesActivity {
     }
     private void loadDefaultKeyword(){
         MyApplication application = (MyApplication)getApplication();
-        if(application.keywordInfoList == null) {
+        if(application.keywordInfoList == null || application.keywordInfoList.size() <= 0) {
             setWaitScreen(true);
             HttpService.instance().getSearchKeyword(new GetDefaultKeyword());
         }else {
+            setWaitScreen(false);
             keywordInfoList = application.keywordInfoList;
             initKeywordView();
         }
@@ -124,6 +130,7 @@ public class ActivitySearch extends BasesActivity {
         public void success(Object data, int statusCode, String msg) {
             setWaitScreen(false);
             keywordInfoList = (List<SearchKeywordInfo>)data;
+            ((MyApplication)getApplication()).keywordInfoList = keywordInfoList;// 暂存下来，以待下次使用
             initKeywordView();
         }
 
@@ -185,7 +192,11 @@ public class ActivitySearch extends BasesActivity {
         isLoading = true;
         if("1".equals(curpage))
             productList = null; // 每次搜索第一页时，初始化
+
         setWaitScreen(true);
+
+        APPUtils.insertToSearchHistory(keyword);
+
         HttpService.instance().getProductList("", keyword, Integer.valueOf(curpage), MAXPAGESIZE, new MySearchResultCallBack(this));
     }
     public void loadSearchResultMore(){
@@ -290,7 +301,9 @@ public class ActivitySearch extends BasesActivity {
         setWaitScreen(false);
 
         if(productList == null || productList.list == null || productList.list.size() <= 0){
-            adapterSearchResult = new AdapterProdcutList(this, null, 1, null);
+            adapterSearchResult.data = new ArrayList<>();
+            adapterSearchResult.pages = 0;
+            adapterSearchResult.currentPage = 1;
             adapterSearchResult.notifyDataSetChanged();
             return;
         }

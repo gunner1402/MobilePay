@@ -103,4 +103,8 @@
     <string name="main_notice_1">再按一次退出程序</string>
     <string name="order_details_label_12">兑换码正在努力生成中</string>
     <string name="google_error_notice7">该订单发现异常，请联系客服！</string>
+
+    <string name="order_list_item_label11">没有更多</string>
+    <string name="capture_scan_text7">错误订单，该订单为App Store订单。</string>
+    <string name="capture_scan_text8">无法支付，该订单为App Store订单。</string>
 </resources>

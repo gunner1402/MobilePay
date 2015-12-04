@@ -1,48 +1,55 @@
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+
 
         <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <include layout="@layout/common_head"/>
 
-            <RelativeLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="120dip">
+                android:layout_height="match_parent">
+                <ScrollView
+                    android:id="@+id/main_shop_scroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="120dip">
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/main_shop_viewpager"
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:background="@mipmap/shop_viewpager_bg"/>
-                <LinearLayout
-                    android:id="@+id/main_shop_viewpager_flag"
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="15dip"/>
-            </RelativeLayout>
+                            <android.support.v4.view.ViewPager
+                                android:id="@+id/main_shop_viewpager"
+                                android:layout_width="fill_parent"
+                                android:layout_height="match_parent"
+                                android:background="@mipmap/shop_viewpager_bg"/>
+                            <LinearLayout
+                                android:id="@+id/main_shop_viewpager_flag"
+                                android:orientation="horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginBottom="15dip"/>
+                        </RelativeLayout>
 
-            <include layout="@layout/fragment_main_shop_function"/>
+                        <include layout="@layout/fragment_main_shop_function"/>
 
-            <include layout="@layout/fragment_main_shop_newest"/>
+                        <include layout="@layout/fragment_main_shop_newest"/>
 
-            <include layout="@layout/fragment_main_shop_hot"/>
+                        <include layout="@layout/fragment_main_shop_hot"/>
 
-            <include layout="@layout/fragment_main_shop_review"/>
+                        <include layout="@layout/fragment_main_shop_review"/>
 
+                    </LinearLayout>
+                </ScrollView>
+                <include layout="@layout/common_waiting_anim" android:id="@+id/main_shop_wait"/>
+                <include layout="@layout/common_network_error" android:id="@+id/main_shop_netwrok_error"/>
+            </FrameLayout>
         </LinearLayout>
-
-    </ScrollView>
-    <include layout="@layout/common_waiting_anim" android:id="@+id/main_shop_wait"/>
-    <include layout="@layout/common_network_error" android:id="@+id/main_shop_netwrok_error"/>
-</FrameLayout>

@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
@@ -74,8 +73,12 @@ public class ActivityCapture extends BasesActivity implements Callback {
 		inactivityTimer = new InactivityTimer(this);
 
 		ReportUtils.add(ReportUtils.DEFAULTEVENT_SCANCODE, null, null);
+
+		setWaitScreen(false);
 	}
 	public void onClickViewToInput(View view){
+		if(BasesUtils.isFastDoubleClick())
+			return;
 		startActivity(new Intent().setClass(this, ActivityCaptureInput.class));
 	}
 
@@ -101,7 +104,6 @@ public class ActivityCapture extends BasesActivity implements Callback {
 		initBeepSound();
 		vibrate = true;
 
-		setWaitScreen(false);
 	}
 
 	@Override
@@ -168,7 +170,7 @@ public class ActivityCapture extends BasesActivity implements Callback {
 			return "";
 		String data = "";
 		try {
-			result = new String(Base64.decode(result, Base64.DEFAULT));
+//			result = new String(Base64.decode(result, Base64.DEFAULT));
 			JSONObject o = new JSONObject(result);
 			if("OASPAY".equals(o.getString("Mark"))){
 				data = o.getString("data");
@@ -179,7 +181,6 @@ public class ActivityCapture extends BasesActivity implements Callback {
 	private void getOrderInfo(String result){
 		setWaitScreen(true);
 		HttpService.instance().getOrderInfoByQR(result, new GetOrderInfoCallback(this));
-
 	}
 	class GetOrderInfoCallback implements CallbackResultForActivity{
 		Activity activity;
@@ -201,6 +202,7 @@ public class ActivityCapture extends BasesActivity implements Callback {
 				return;
 			}
 			startActivity(new Intent().setClass(activity, ActivityOrderDetails.class).putExtra("orderinfo", info));
+			activity.finish();
 		}
 
 		@Override
@@ -217,9 +219,29 @@ public class ActivityCapture extends BasesActivity implements Callback {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.cancel();
-						startActivity(new Intent().setClass(activity, ActivityLogin.class));
+						startActivityForResult(new Intent().setClass(activity, ActivityLogin.class), 100);
 					}
 				}, "", null);
+				return;
+			}
+			if(!TextUtils.isEmpty(msg) && "-22".equals(msg)){// 不是google订单
+				BasesUtils.showDialogBySystemUI(activity, getResources().getString(R.string.capture_scan_text7), "", null, getString(R.string.search_title_sub2), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						handler.sendEmptyMessageDelayed(123123, 1500);// 支持继续扫描,延迟1500毫秒是为了让摄像头准备，避免摄像头还没有准备好就开始自动对焦
+						dialog.cancel();
+					}
+				}, "", null);
+				return;
+			}
+			if(!TextUtils.isEmpty(msg) && "-23".equals(msg)){// 订单不存在
+				BasesUtils.showDialogBySystemUI(activity, getResources().getString(R.string.order_list_item_label9),  "", null, getString(R.string.search_title_sub2), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						handler.sendEmptyMessageDelayed(123123, 1500);// 支持继续扫描,延迟1500毫秒是为了让摄像头准备，避免摄像头还没有准备好就开始自动对焦
+						dialog.cancel();
+					}
+				},"", null);
 				return;
 			}
 			APPUtils.showErrorMessageByErrorCode(activity, "-2000");

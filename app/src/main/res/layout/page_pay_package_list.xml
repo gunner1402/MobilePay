@@ -192,6 +192,7 @@
             android:gravity="center"
             android:layout_gravity="bottom"
             android:visibility="invisible"/>
+        <include layout="@layout/common_waiting_anim"/>
         <include layout="@layout/common_network_error"/>
     </FrameLayout>
 </LinearLayout>

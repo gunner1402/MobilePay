@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/common_waiting_anim_layout"
 	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="fill_parent" android:gravity="center">
+	android:layout_height="fill_parent" android:gravity="center"
+	android:background="@color/common_font_color_ffffff">
 
 	<ProgressBar 
 		android:layout_width="162dip" android:layout_height="162dip"

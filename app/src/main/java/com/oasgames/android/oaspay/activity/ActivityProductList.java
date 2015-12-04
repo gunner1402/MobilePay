@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import com.base.tools.activity.BasesActivity;
 import com.base.tools.http.CallbackResultForActivity;
+import com.base.tools.utils.BasesUtils;
 import com.oasgames.android.oaspay.R;
 import com.oasgames.android.oaspay.adapter.AdapterProdcutList;
 import com.oasgames.android.oaspay.entity.ProductInfo;
@@ -43,6 +44,8 @@ public class ActivityProductList extends BasesActivity {
         initHead(true, true, null, false, getString(R.string.product_list_title), true, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(BasesUtils.isFastDoubleClick())
+                    return;
                 startActivity(new Intent().setClass(ActivityProductList.this, ActivitySearch.class));
             }
         });
@@ -53,6 +56,8 @@ public class ActivityProductList extends BasesActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(BasesUtils.isFastDoubleClick())
+                    return;
                 startActivity(new Intent().setClass(ActivityProductList.this, ActivityProductDetails.class).putExtra("id", ((ProductInfo) productList.list.get(position)).product_id));
             }
         });

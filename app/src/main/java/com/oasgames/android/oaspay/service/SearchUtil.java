@@ -1,6 +1,7 @@
 package com.oasgames.android.oaspay.service;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 
 import com.base.tools.BasesApplication;
 import com.base.tools.exception.BasesDataErrorException;
@@ -30,6 +31,23 @@ public class SearchUtil {
         }catch (Exception e){
             throw new BasesDataErrorException("");
         }
+    }
+
+    public static int deleteIfExist(String word){
+        Cursor cur = BasesApplication.dbHelper.loadByWhere(TABLENAME, COLUMNS, COLUMNS_KEYWORD + "=?", new String[]{word});
+        if(cur.getCount()<=0){
+            cur.close();
+            return 1;
+        }
+        for(cur.moveToFirst();!cur.isAfterLast();cur.moveToNext())
+        {
+            int nameColumn = cur.getColumnIndex(COLUMNS_ID);
+            String id = cur.getString(nameColumn);
+            BasesApplication.dbHelper.delete(TABLENAME, COLUMNS_ID + "=?", new String[]{id});
+        }
+        cur.close();
+
+        return 1;
     }
 
     public static boolean deleteAll(){

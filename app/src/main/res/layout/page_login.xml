@@ -6,6 +6,9 @@
 
     <include layout="@layout/common_head"/>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -219,4 +222,6 @@
                 android:textSize="@dimen/common_font_size_12"/>
         </LinearLayout>
     </ScrollView>
+        <include layout="@layout/common_waiting_anim"/>
+    </FrameLayout>
 </LinearLayout>

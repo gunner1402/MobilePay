@@ -105,8 +105,16 @@ public class FragmentMine extends Fragment {
 		touxiang.getChildAt(0).setVisibility(View.GONE);
 		touxiang.getChildAt(1).setVisibility(View.VISIBLE);
 		touxiang.getChildAt(1).setBackgroundResource(R.mipmap.fragment_mine_head_bg_touxiang);
+		touxiang.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(BasesUtils.isLogin())
+					updateUserInfo();
+				else
+					startActivity(new Intent().setClass(getActivity(), ActivityLogin.class));
+			}
+		});
 		initList(false);
-
 	}
 
 	private void initList(boolean flag){
@@ -116,20 +124,37 @@ public class FragmentMine extends Fragment {
 		for (int i = 0; i < count; i++) {
 			View v = getActivity().getLayoutInflater().inflate(R.layout.fragment_main_mine_item, null);
 			TextView tv = (TextView)v.findViewById(R.id.fragment_mine_item_title);
-			tv.setText(getResources().getText(data[i]));
-			v.setTag(data[i]);
+
+			int str = data[i];
+			tv.setText(getResources().getText(str));
+			v.setTag(str);
+//			if(str == R.string.fragment_mine_head_list_2){
+//				try {
+//					String size = DataCleanManager.getCacheSizeByThisApp(getActivity());
+//					BasesUtils.logError("123321", "123321+=" + size);
+//
+//					TextView notice = (TextView)v.findViewById(R.id.fragment_mine_item_notice);
+//					notice.setText("0.0M");
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
 			v.setOnClickListener(new MyListener());
 			list.addView(v);
 		}
 	}
 
 	class MyListener implements View.OnClickListener{
+		View view ;
 		@Override
 		public void onClick(View v) {
+			if(BasesUtils.isFastDoubleClick())
+				return;
+			this.view = v;
 			int tag = (int)v.getTag();
 			switch (tag){
 				case R.string.fragment_shop_function_order:
-					startActivity(new Intent().setClass(getActivity(), ActivityOrderListSlide.class));
+					startActivityForResult(new Intent().setClass(((ActivityMain)getActivity()), ActivityOrderListSlide.class), 111);
 					ReportUtils.add(ReportUtils.DEFAULTEVENT_FMETMYLIST, null, null);
 					break;
 				case R.string.fragment_mine_head_list_2:
@@ -142,6 +167,7 @@ public class FragmentMine extends Fragment {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							dialog.cancel();
+							view.findViewById(R.id.fragment_mine_item_notice).setVisibility(View.INVISIBLE);
 							BasesUtils.showMsg(getActivity(), getString(R.string.fragment_mine_head_list_2_2));
 						}
 					}, "", null);

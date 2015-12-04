@@ -1,7 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/transparent_background">
     
     <TextView android:layout_width="match_parent"
     	android:layout_height="match_parent"
@@ -65,4 +66,5 @@
         </LinearLayout>
     </RelativeLayout>
 
+    <include layout="@layout/common_waiting_anim"/>
 </FrameLayout>

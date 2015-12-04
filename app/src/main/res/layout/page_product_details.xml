@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical" android:layout_width="match_parent"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_background_all_page"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_head" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/common_background_all_page">
-
-        <include layout="@layout/common_head"/>
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -20,41 +24,44 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:orientation="horizontal">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/main_foot_height"
-                    android:orientation="horizontal"
                     android:layout_weight="4"
                     android:background="@color/common_background_333333"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/product_details_price"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/main_foot_height"
-                        android:gravity="right|center_vertical"
                         android:layout_marginRight="@dimen/common_content_margin_5"
+                        android:gravity="right|center_vertical"
                         android:textColor="@color/common_font_color_ffffff"
-                        android:textSize="@dimen/common_font_size_16"/>
+                        android:textSize="@dimen/common_font_size_16" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/main_foot_height"
                         android:gravity="right|center_vertical"
                         android:text="@string/product_details_price"
                         android:textColor="@color/common_font_color_ffffff"
-                        android:textSize="@dimen/common_font_size_14"/>
+                        android:textSize="@dimen/common_font_size_14" />
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/main_foot_height"
                     android:layout_weight="6"
-                    android:gravity="center"
                     android:background="@drawable/common_bg_1_selector"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:onClick="onClickViewTopay"
                     android:text="@string/fragment_shop_category_review_charge"
                     android:textColor="@color/common_font_color_ffffff"
-                    android:textSize="@dimen/common_font_size_16"
-                    android:clickable="true"
-                    android:onClick="onClickViewTopay"/>
+                    android:textSize="@dimen/common_font_size_16" />
             </LinearLayout>
 
             <ScrollView
@@ -80,17 +87,20 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="2dip"
-                        android:background="@color/common_list_item_divide_bg"/>
+                        android:background="@color/common_list_item_divide_bg" />
 
                     <LinearLayout
                         android:id="@+id/product_details_notice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"/>
+                        android:orientation="vertical" />
 
                 </LinearLayout>
             </ScrollView>
         </RelativeLayout>
-    </LinearLayout>
-    <include layout="@layout/common_network_error"/>
-</FrameLayout>
+
+        <include layout="@layout/common_waiting_anim" />
+
+        <include layout="@layout/common_network_error" />
+    </FrameLayout>
+</LinearLayout>

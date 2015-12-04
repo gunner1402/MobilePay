@@ -91,11 +91,11 @@
                     android:divider="@color/transparent_background"/>
 
                 <include layout="@layout/page_order_list_slide_empty"/>
-
+                <include layout="@layout/common_waiting_anim"/>
+                <include layout="@layout/common_network_error"/>
             </FrameLayout>
         </LinearLayout>
 
-        <include layout="@layout/common_network_error"/>
     </FrameLayout>
 
 </LinearLayout>

@@ -6,6 +6,9 @@
 
     <include layout="@layout/common_head"/>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -52,5 +55,6 @@
             android:clickable="true"
             android:onClick="onClickViewToInput"/>
     </LinearLayout>
-
+        <include layout="@layout/common_waiting_anim"/>
+    </FrameLayout>
 </LinearLayout>

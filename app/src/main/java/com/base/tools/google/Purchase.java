@@ -33,18 +33,18 @@ public class Purchase {
     String mOriginalJson;
     String mSignature;
 
-    public Purchase(String productID, String packName){
-    	 mItemType = "ITEM_TYPE_INAPP";
-         mOriginalJson = "";//jsonPurchaseInfo;
-         mOrderId = "";
-         mPackageName = packName;
-         mSku = productID;
-         mPurchaseTime = System.currentTimeMillis();
-         mPurchaseState = 0;
-         mDeveloperPayload = "";
-         mToken = "";
-         mSignature = "";
-    }
+//    public Purchase(String productID, String packName){
+//    	 mItemType = "ITEM_TYPE_INAPP";
+//         mOriginalJson = "";//jsonPurchaseInfo;
+//         mOrderId = "";
+//         mPackageName = packName;
+//         mSku = productID;
+//         mPurchaseTime = System.currentTimeMillis();
+//         mPurchaseState = 0;
+//         mDeveloperPayload = "";
+//         mToken = "";
+//         mSignature = "";
+//    }
     public Purchase(String itemType, String jsonPurchaseInfo, String signature) throws JSONException {
         mItemType = itemType;
         mOriginalJson = jsonPurchaseInfo;

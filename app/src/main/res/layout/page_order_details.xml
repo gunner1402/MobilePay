@@ -6,6 +6,9 @@
 
     <include layout="@layout/common_head"/>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -269,5 +272,7 @@
                 android:onClick="onClickViewTopay"/>
         </LinearLayout>
     </ScrollView>
+        <include layout="@layout/common_waiting_anim"/>
+    </FrameLayout>
 
 </LinearLayout>

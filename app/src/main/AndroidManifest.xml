@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.oasgames.android.oaspay"
     android:versionCode="3"
-    android:versionName="1.0.0"
+    android:versionName="1.0.2"
     tools:ignore="GradleOverrides">
 
     <uses-sdk
@@ -19,13 +19,13 @@
     <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
 
     <application
-        android:name=".activity.MyApplication"
+        android:name="com.oasgames.android.oaspay.activity.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.ActivityLogo"
+            android:name="com.oasgames.android.oaspay.activity.ActivityLogo"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -35,52 +35,52 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.ActivityMain"
+            android:name="com.oasgames.android.oaspay.activity.ActivityMain"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait" android:launchMode="singleTop"/>
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:label="@string/app_name" />
-        <activity android:name=".activity.ActivityLogin"
+        <activity android:name="com.oasgames.android.oaspay.activity.ActivityLogin"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ActivityGooglePlayBilling"
+        <activity android:name="com.oasgames.android.oaspay.activity.ActivityGooglePlayBilling"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ActivitySearch"
+        <activity android:name="com.oasgames.android.oaspay.activity.ActivitySearch"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ActivityOrderListSlide"
+        <activity android:name="com.oasgames.android.oaspay.activity.ActivityOrderListSlide"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ActivityOrderDetails"
+        <activity android:name="com.oasgames.android.oaspay.activity.ActivityOrderDetails"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait" android:launchMode="singleTask"/>
-        <activity android:name=".activity.ActivityProductList"
+        <activity android:name="com.oasgames.android.oaspay.activity.ActivityProductList"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ActivityProductDetails"
+        <activity android:name="com.oasgames.android.oaspay.activity.ActivityProductDetails"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ActivityCapture"
+        <activity android:name="com.oasgames.android.oaspay.activity.ActivityCapture"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ActivityCaptureInput"
+        <activity android:name="com.oasgames.android.oaspay.activity.ActivityCaptureInput"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ActivityPayPackageList"
+        <activity android:name="com.oasgames.android.oaspay.activity.ActivityPayPackageList"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ActivityAbout"
+        <activity android:name="com.oasgames.android.oaspay.activity.ActivityAbout"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ActivityNewsDetails"
+        <activity android:name="com.oasgames.android.oaspay.activity.ActivityNewsDetails"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ActivityWebview"
+        <activity android:name="com.oasgames.android.oaspay.activity.ActivityWebview"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait"/>
 
@@ -94,10 +94,6 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-        <!--<provider
-        android:name="com.facebook.FacebookContentProvider"
-        android:authorities="com.facebook.app.FacebookContentProvider340989056058098"
-        android:exported="true" />-->
     </application>
 
 </manifest>

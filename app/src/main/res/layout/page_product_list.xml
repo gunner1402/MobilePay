@@ -21,6 +21,7 @@
             android:dividerHeight="2dip"
             android:cacheColorHint="@color/transparent_background"/>
 
+        <include layout="@layout/common_waiting_anim"/>
         <include layout="@layout/common_network_error"/>
     </FrameLayout>
 

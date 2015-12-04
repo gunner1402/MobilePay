@@ -103,4 +103,8 @@
     <string name="main_notice_1">قم بالنقر مرة أخرى للخروج من البرنامج</string>
     <string name="order_details_label_12">في طور توليد الأكواد التي تم تبديلها</string>
     <string name="google_error_notice7">لقد حدث خلل في هذة الطلبية ، يرجى التواصل مع خدمة العملاء !</string>
+
+    <string name="order_list_item_label11">لا يوجد مزيد</string>
+    <string name="capture_scan_text7">طلبية خاطئة ، هدة الطلبية هي طلبية App Store</string>
+    <string name="capture_scan_text8">لا يمكنك الدفع ، هدة الطلبية هي طلبية App Store</string>
 </resources>

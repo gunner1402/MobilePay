@@ -119,6 +119,7 @@ GoogleApiClient.OnConnectionFailedListener{
         .addScope(new Scope("profile"))
         .build();
 
+		setWaitScreen(false);
 	}
 
 	@Override
@@ -363,7 +364,6 @@ GoogleApiClient.OnConnectionFailedListener{
 					outer.setWaitScreen(false);
 					break;
 				case HANDLER_RESULT:
-					outer.setWaitScreen(false);
 					/*if(MemberBaseInfo.USER_FACEBOOK.equals(BasesApplication.userInfo.platform)){
 						FacebookUtils.logout();
 					}else */if(MemberBaseInfo.USER_GOOGLE.equals(BasesApplication.userInfo.platform)){
@@ -383,6 +383,7 @@ GoogleApiClient.OnConnectionFailedListener{
 						APPUtils.clearInfoForLogout();// 登录、切换成功后，清楚服id、角色id
 						outer.myHandler.sendEmptyMessage(HANDLER_SUCECCES);
 					}else{
+						outer.setWaitScreen(false);
 						APPUtils.showErrorMessageByErrorCode(outer, BasesApplication.userInfo.error);
 						/*if("-4".equals(BasesApplication.userInfo.error)){
 							APPUtils.showErrorMessageByErrorCode(outer, BasesApplication.userInfo.error);
@@ -408,6 +409,7 @@ GoogleApiClient.OnConnectionFailedListener{
 					paras.put("logintype", BasesUtils.isLogin() ? BasesApplication.userInfo.platform : "loginno");
 					ReportUtils.add(ReportUtils.DEFAULTEVENT_LOGIN, paras, null);
 
+					outer.setWaitScreen(false);
 					outer.finish();
 					break;
 				case HANDLER_FAIL:
