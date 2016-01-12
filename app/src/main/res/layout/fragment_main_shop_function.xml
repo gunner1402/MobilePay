@@ -99,7 +99,7 @@
                 android:id="@+id/fragment_shop_function_prop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/fragment_shop_function_prop"
+                android:background="@mipmap/fragment_shop_function_other"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/common_content_margin_20"/>
