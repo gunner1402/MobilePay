@@ -37,6 +37,8 @@ public class OrderInfo implements Serializable{
 	public String order_type;		//订单类型	礼包:giftapp    套餐：payapp
 	public String order_status;		//订单状态  1正常  2删除 3取消 4下单失败
 	public String pay_status;		//支付状态   1等待支付 2完成支付
+	public String online_status;	//上架状态 1上架 2下架
+
 	public String create_time;		//下单时间
 	public String pay_time;			//完成支付时间
 
@@ -137,5 +139,10 @@ public class OrderInfo implements Serializable{
 
 	public void setOstype(String ostype) {
 		this.ostype = ostype;
+	}
+
+
+	public void setOnline_status(String online_status) {
+		this.online_status = online_status;
 	}
 }

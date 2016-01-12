@@ -10,24 +10,11 @@
         android:scaleType="fitXY"
         android:layout_centerHorizontal="true"
         android:background="@mipmap/common_default_bg"/>
-    <TextView
-        android:id="@+id/fragment_shop_category_item_title"
-        android:layout_width="@dimen/fragment_shop_category_newest_item_width"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_shop_category_item_image"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/common_content_margin_5"
-        android:layout_marginBottom="@dimen/common_content_margin_5"
-        android:textSize="@dimen/common_font_size_12"
-        android:textColor="@color/common_font_color_000000"
-        android:gravity="center"
-        android:text="sfds是否是电放费似懂非懂是非得失"/>
     <LinearLayout
+        android:id="@+id/fragment_shop_category_item_diamond_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_shop_category_item_title"
+        android:layout_below="@id/fragment_shop_category_item_image"
         android:orientation="horizontal"
         android:gravity="center_horizontal">
 
@@ -36,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/common_font_size_14"
-            android:textColor="@color/common_font_color_ff5a00"
+            android:textColor="@color/common_font_color_000000"
             android:gravity="center"
             android:text="3000"
             android:layout_marginRight="@dimen/common_content_margin_5"/>
@@ -46,6 +33,19 @@
             android:background="@mipmap/common_diamond_blue"
             android:layout_gravity="center_vertical"/>
     </LinearLayout>
+    <TextView
+        android:id="@+id/fragment_shop_category_item_title"
+        android:layout_width="@dimen/fragment_shop_category_newest_item_width"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_shop_category_item_diamond_layout"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/common_content_margin_5"
+        android:layout_marginBottom="@dimen/common_content_margin_5"
+        android:textSize="@dimen/common_font_size_12"
+        android:textColor="@color/common_font_color_ff5a00"
+        android:gravity="center"/>
 
 
 </RelativeLayout>

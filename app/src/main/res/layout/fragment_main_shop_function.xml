@@ -47,6 +47,46 @@
             android:layout_height="fill_parent"
             android:background="@color/common_list_item_divide_bg"/>
         <RelativeLayout
+            android:id="@+id/fragment_shop_function_charge_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fragment_shop_function_item_height"
+            android:background="@drawable/common_list_item_selector"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:onClick="onClickView">
+            // 充值
+            <TextView
+                android:id="@+id/fragment_shop_function_charge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/fragment_shop_function_charge"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/common_content_margin_20"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/fragment_shop_function_charge"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/common_content_margin_10"
+                android:gravity="right|center_vertical"
+                android:text="@string/fragment_shop_function_charge"
+                android:textSize="@dimen/common_font_size_14"
+                android:textColor="@color/common_font_color_000000"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="2dip"
+        android:background="@color/common_list_item_divide_bg"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fragment_shop_function_item_height"
+        android:orientation="horizontal">
+        <RelativeLayout
             android:id="@+id/fragment_shop_function_prop_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/fragment_shop_function_item_height"
@@ -70,22 +110,15 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/common_content_margin_10"
                 android:gravity="right|center_vertical"
-                android:text="@string/fragment_shop_function_prop"
+                android:text="@string/fragment_shop_function_orther"
                 android:textSize="@dimen/common_font_size_14"
                 android:textColor="@color/common_font_color_000000"/>
 
         </RelativeLayout>
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="2dip"
-        android:background="@color/common_list_item_divide_bg"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/fragment_shop_function_item_height"
-        android:orientation="horizontal">
+        <TextView
+            android:layout_width="2dip"
+            android:layout_height="fill_parent"
+            android:background="@color/common_list_item_divide_bg"/>
         <RelativeLayout
             android:id="@+id/fragment_shop_function_capture_layout"
             android:layout_width="match_parent"
@@ -111,39 +144,6 @@
                 android:layout_marginRight="@dimen/common_content_margin_10"
                 android:gravity="right|center_vertical"
                 android:text="@string/fragment_shop_function_capture"
-                android:textSize="@dimen/common_font_size_14"
-                android:textColor="@color/common_font_color_000000"/>
-
-        </RelativeLayout>
-        <TextView
-            android:layout_width="2dip"
-            android:layout_height="fill_parent"
-            android:background="@color/common_list_item_divide_bg"/>
-        <RelativeLayout
-            android:id="@+id/fragment_shop_function_charge_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/fragment_shop_function_item_height"
-            android:background="@drawable/common_list_item_selector"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:onClick="onClickView">
-            // 充值
-            <TextView
-                android:id="@+id/fragment_shop_function_charge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/fragment_shop_function_charge"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/common_content_margin_20"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/fragment_shop_function_charge"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/common_content_margin_10"
-                android:gravity="right|center_vertical"
-                android:text="@string/fragment_shop_function_charge"
                 android:textSize="@dimen/common_font_size_14"
                 android:textColor="@color/common_font_color_000000"/>
 

@@ -49,7 +49,8 @@
 		android:background="@drawable/common_head_search_selector"
 		android:layout_marginRight="@dimen/common_content_margin_10"
 		android:clickable="true"
-		android:onClick="onClickView"/>
+		android:onClick="onClickView"
+		android:visibility="invisible"/>
 
 
 

@@ -133,7 +133,10 @@ public class AdapterOrderListSlide extends SlideBaseAdapter {
 			holder.diamond.setVisibility(View.INVISIBLE);
 			holder.diamondBg.setVisibility(View.INVISIBLE);
 
-			holder.image.setImageResource(R.mipmap.common_diamond_bg);
+			if(TextUtils.isEmpty(info.product_img_url))
+				holder.image.setImageResource(R.mipmap.common_diamond_bg);
+			else
+				BasesUtils.loadImg(activity, holder.image, info.product_img_url);
 		}else {
 			BasesUtils.loadImg(activity, holder.image, info.product_img_url);
 			holder.diamond.setVisibility(View.VISIBLE);

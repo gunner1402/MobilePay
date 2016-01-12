@@ -49,7 +49,10 @@ public class AdapterShopNewestHotProductList extends BasesListAdapter<ProductInf
 		}
 
 		final ProductInfo info = getItem(position);
-		holder.title.setText(info.product_name);
+		if("giftapp".equals(info.product_property))
+			holder.title.setText(info.product_name);
+		else if("payapp".equals(info.product_property))
+			holder.title.setText(info.currency_show+info.amount_show);
 		holder.diamond.setText(info.game_coins_show);
 		loadImg(holder.img, info.product_img_url);
 		return convertView;

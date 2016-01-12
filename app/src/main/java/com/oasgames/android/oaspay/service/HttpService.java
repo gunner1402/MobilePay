@@ -187,9 +187,10 @@ public class HttpService {
 			@Override
 			public void onResponse(String s) {
 				boolean status = isSuccess("checkAppVersion", s, callback);
-				if (!status)
+				if (!status) {
+					callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, "");
 					return;
-
+				}
 				AppVersionInfo app = new AppVersionInfo();
 				try {
 					// 解析json
@@ -222,8 +223,10 @@ public class HttpService {
 			public void onResponse(String s) {
 				boolean status = isSuccess("getSearchKeyword", s, callback);
 //
-				if (!status)
+				if (!status) {
+					callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, "");
 					return;
+				}
 //
 				SearchKeywordInfo ki = new SearchKeywordInfo();
 				List list = new ArrayList();
@@ -257,8 +260,10 @@ public class HttpService {
 			public void onResponse(String s) {
 				boolean status = isSuccess("getShopInfo", s, callback);
 
-				if(!status)
+				if (!status) {
+					callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, "");
 					return;
+				}
 
 				ShopList list = new ShopList();
 				try {
@@ -317,8 +322,10 @@ public class HttpService {
 			public void onResponse(String s) {
 				boolean status = isSuccess("getProductList", s, callback);
 
-				if(!status)
+				if (!status) {
+					callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, "");
 					return;
+				}
 
 				ProductList list = new ProductList();
 				try {
@@ -353,8 +360,10 @@ public class HttpService {
 			public void onResponse(String s) {
 				boolean status = isSuccess("getProductDetails", s, callback);
 
-				if(!status)
+				if (!status) {
+					callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, "");
 					return;
+				}
 
 				ProductInfo info = null;
 				try {
@@ -403,8 +412,10 @@ public class HttpService {
 			@Override
 			public void onResponse(String s) {
 				boolean flag = isSuccess("sendOrder", s, callback);
-				if(!flag)
+				if (!flag) {
+					callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, "");
 					return;
+				}
 
 				OrderInfo info = new OrderInfo();
 				try {
@@ -440,8 +451,10 @@ public class HttpService {
 			@Override
 			public void onResponse(String s) {
 				boolean flag = isSuccess("getOrderList", s, callback);
-				if(!flag)
+				if (!flag) {
+					callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, "");
 					return;
+				}
 
 				OrderList list = new OrderList();
 				try {
@@ -470,8 +483,10 @@ public class HttpService {
 			@Override
 			public void onResponse(String s) {
 				boolean flag = isSuccess("getOrderInfoByID", s, callback);
-				if(!flag)
+				if (!flag) {
+					callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, "");
 					return;
+				}
 				OrderInfo info = null;
 				try {
 					info = new OrderInfo();
@@ -567,8 +582,10 @@ public class HttpService {
 			@Override
 			public void onResponse(String s) {
 				boolean flag = isSuccess("deleteOrderByID", s, callback);
-				if(!flag)
+				if (!flag) {
+					callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, "");
 					return;
+				}
 				callback.success("true", BasesConstant.RESULT_SUCCESS, "");
 			}
 		}, new Response.ErrorListener() {
@@ -593,8 +610,10 @@ public class HttpService {
 			@Override
 			public void onResponse(String s) {
 				boolean flag = isSuccess("getNewsList", s, callback);
-				if(!flag)
+				if (!flag) {
+					callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, "");
 					return;
+				}
 
 				NewsList list = new NewsList();
 				try {
@@ -668,9 +687,10 @@ public class HttpService {
 			@Override
 			public void onResponse(String s) {
 				boolean flag = isSuccess("checkPurchaseForGoogle",s ,callback);
-				if(!flag)
+				if(!flag) {
+					callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, "");
 					return;
-
+				}
 				OrderInfo info = new OrderInfo();
 				try {
 					BasesJsonParser.newInstance().parserJson2Obj(s, info);
@@ -725,8 +745,10 @@ public class HttpService {
 			@Override
 			public void onResponse(String s) {
 				boolean flag = isSuccess("getPayKindsInfo", s, callback);
-				if (!flag)
+				if (!flag) {
+					callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, "数据格式异常");
 					return;
+				}
 				PayInfoList pil = new PayInfoList();
 				try {
 					JSONObject o = new JSONObject(s);

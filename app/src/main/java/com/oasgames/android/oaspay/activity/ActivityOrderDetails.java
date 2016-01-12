@@ -55,9 +55,12 @@ public class ActivityOrderDetails extends BasesActivity {
         ((TextView)findViewById(R.id.order_details_id)).setText(order.order_id);
 
         findViewById(R.id.product_item_charge).setVisibility(View.INVISIBLE);
-        if("payapp".equalsIgnoreCase(order.order_type))
-            findViewById(R.id.product_item_img).setBackgroundResource(R.mipmap.common_diamond_bg);
-        else
+        if("payapp".equalsIgnoreCase(order.order_type)) {
+            if(TextUtils.isEmpty(order.product_img_url))
+                findViewById(R.id.product_item_img).setBackgroundResource(R.mipmap.common_diamond_bg);
+            else
+                BasesUtils.loadImg(this, (ImageView) findViewById(R.id.product_item_img), order.product_img_url);
+        }else
             BasesUtils.loadImg(this, (ImageView) findViewById(R.id.product_item_img), order.product_img_url);
         ((TextView)findViewById(R.id.product_item_title)).setText(order.product_name);
         ((TextView)findViewById(R.id.product_item_diamond_count)).setText(order.game_coins_show);
@@ -188,6 +191,15 @@ public class ActivityOrderDetails extends BasesActivity {
                         updateView();
                     }
                 }, "", null, "",null);
+                return;
+            }
+            if(TextUtils.isEmpty(order.online_status) || "2".equals(order.online_status)){// 商品已下架
+                BasesUtils.showDialogBySystemUI(activity, getResources().getString(R.string.order_list_item_label12), getResources().getString(R.string.search_title_sub2), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }, "", null, "", null);
                 return;
             }
             startActivity(new Intent().setClass(activity, ActivityGooglePlayBilling.class).putExtra("orderinfo", order));

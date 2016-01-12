@@ -107,4 +107,7 @@
     <string name="order_list_item_label11">没有更多</string>
     <string name="capture_scan_text7">错误订单，该订单为App Store订单。</string>
     <string name="capture_scan_text8">无法支付，该订单为App Store订单。</string>
+
+    <string name="fragment_shop_function_orther">敬请期待</string>
+    <string name="order_list_item_label12">该产品已下线！</string>
 </resources>

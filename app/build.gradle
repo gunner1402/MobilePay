@@ -7,8 +7,8 @@ android {
         applicationId "com.oasgames.android.oaspay"
         minSdkVersion 11
         targetSdkVersion 21
-        versionCode 5
-        versionName "1.0.2"
+        versionCode 6
+        versionName "1.1.0"
     }
     buildTypes {
         release {
@@ -21,6 +21,12 @@ android {
 //                    manifestPlaceholders = [str:"releaseStr",package_name:"com.oasgames.android.oaspay"]
 //                    applicationId "com.oasgames.android.oaspay"
 //        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
 }
 

@@ -11,7 +11,7 @@ public class ProductInfo implements Serializable{
 	private static final long serialVersionUID = 1598605839985469091L;
 	
 	public String product_id;			//商品礼包id
-	private String price_product_id;		//商店id
+	public String price_product_id;		//商店id
 	public String product_name;			//名称
 	public String product_img_url;		//图片地址
 	public String game_coins;			//钻石数量
@@ -22,6 +22,7 @@ public class ProductInfo implements Serializable{
 	public String currency;				//显示货币
 	public String currency_show;		//显示货币
 	public String content_info;			//商品说明 数组
+	public String product_property;		//giftapp 礼包 payapp套餐
 
 
 	public void setProduct_id(String product_id) {
@@ -70,5 +71,9 @@ public class ProductInfo implements Serializable{
 
 	public void setPrice_product_id(String price_product_id) {
 		this.price_product_id = price_product_id;
+	}
+
+	public void setProduct_property(String product_property) {
+		this.product_property = product_property;
 	}
 }

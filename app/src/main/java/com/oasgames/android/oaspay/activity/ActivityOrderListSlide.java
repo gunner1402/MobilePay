@@ -422,6 +422,16 @@ public class ActivityOrderListSlide extends BasesActivity {
                 return;
             }
 
+            if(TextUtils.isEmpty(info.online_status) || "2".equals(info.online_status)){// 商品已下架
+                BasesUtils.showDialogBySystemUI(ActivityOrderListSlide.this, getResources().getString(R.string.order_list_item_label12), getResources().getString(R.string.search_title_sub2), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }, "", null, "", null);
+                return;
+            }
+
             if (info != null && !TextUtils.isEmpty(info.order_id)) {// 直接转到详细界面
                 startActivity(new Intent().setClass(ActivityOrderListSlide.this, ActivityOrderDetails.class).putExtra("orderinfo", info));
                 return;

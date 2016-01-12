@@ -151,7 +151,7 @@ public class ActivityMain extends FragmentActivity {
 					startActivity(new Intent().setClass(this, ActivityLogin.class));
 				break;
 			case R.id.fragment_shop_function_prop_layout:
-				startActivity(new Intent().setClass(this, ActivityProductList.class));
+//				startActivity(new Intent().setClass(this, ActivityProductList.class));
 				break;
 			case R.id.fragment_shop_function_capture_layout:
 				startActivity(new Intent().setClass(this, ActivityCapture.class));
@@ -163,14 +163,22 @@ public class ActivityMain extends FragmentActivity {
 					startActivity(new Intent().setClass(this, ActivityLogin.class));
 				break;
 			case R.id.fragment_shop_category_newest_more:
-				startActivity(new Intent().setClass(this, ActivityProductList.class).putExtra("product_type", "1"));
+//				startActivity(new Intent().setClass(this, ActivityProductList.class).putExtra("product_type", "1"));
+				if(BasesUtils.isLogin())
+					startActivity(new Intent().setClass(this, ActivityPayPackageList.class));
+				else
+					startActivity(new Intent().setClass(this, ActivityLogin.class));
 				break;
 			case R.id.fragment_shop_category_hot_more:
-				startActivity(new Intent().setClass(this, ActivityProductList.class).putExtra("product_type", "2"));
+//				startActivity(new Intent().setClass(this, ActivityProductList.class).putExtra("product_type", "2"));
+				if(BasesUtils.isLogin())
+					startActivity(new Intent().setClass(this, ActivityPayPackageList.class));
+				else
+					startActivity(new Intent().setClass(this, ActivityLogin.class));
 				break;
-			case R.id.fragment_shop_category_review_more:
-				startActivity(new Intent().setClass(this, ActivityProductList.class).putExtra("product_type", "3"));
-				break;
+//			case R.id.fragment_shop_category_review_more:
+//				startActivity(new Intent().setClass(this, ActivityProductList.class).putExtra("product_type", "3"));
+//				break;
 //			case R.id.fragment_mine_head_touxiang:
 //				if(BasesUtils.isLogin())
 //					return;

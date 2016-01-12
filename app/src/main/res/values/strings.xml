@@ -107,4 +107,8 @@
     <string name="order_list_item_label11">لا يوجد مزيد</string>
     <string name="capture_scan_text7">طلبية خاطئة ، هدة الطلبية هي طلبية App Store</string>
     <string name="capture_scan_text8">لا يمكنك الدفع ، هدة الطلبية هي طلبية App Store</string>
+
+
+    <string name="fragment_shop_function_orther">كنا متطلعا</string>
+    <string name="order_list_item_label12">هذا المنتج غير موجود حاليا !</string>
 </resources>

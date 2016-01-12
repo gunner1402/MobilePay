@@ -38,6 +38,8 @@ public class ActivityPayPackageList extends BasesActivity {
     TextView username, servername, rolename, price, topay;
     String[] serverList = null;
     int defaultCheckedIndex = -1;
+
+    String priceProductId = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +47,11 @@ public class ActivityPayPackageList extends BasesActivity {
 
         initHead(true, true, null, false, getString(R.string.pay_package_list_title), false, null);
 
+        if(getIntent() != null ){
+            priceProductId = getIntent().getStringExtra("id");
+        }
+
         listView = (ListView)findViewById(R.id.pay_package_list);
-        loadData();
         adapter = new AdapterPayPackageList(this, null, 1, null);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -82,6 +87,7 @@ public class ActivityPayPackageList extends BasesActivity {
         });
 
         ReportUtils.add(ReportUtils.DEFAULTEVENT_GAMEPAY, null, null);
+        loadData();
     }
 
     private void updateUserInfo(int which){
@@ -99,7 +105,14 @@ public class ActivityPayPackageList extends BasesActivity {
         paylist = (PayInfoList)data;
 
         if(paylist.list != null && paylist.list.size()>0) {
-            selectedPayInfo = paylist.list.get(0);
+            if(TextUtils.isEmpty(priceProductId))
+                selectedPayInfo = paylist.list.get(0);
+            else{
+                for (PayInfoDetail info : paylist.list ) {
+                    if(priceProductId.equals(info.price_product_id))
+                        selectedPayInfo = info;
+                }
+            }
             price.setText(selectedPayInfo.currency_show + selectedPayInfo.amount_show);
         }else{
             selectedPayInfo = null;

@@ -19,7 +19,7 @@
 
     <dimen name="fragment_shop_viewpager_height">90dip</dimen>
     <dimen name="fragment_shop_function_item_height">62dip</dimen>
-    <dimen name="fragment_shop_category_height">25dip</dimen>
+    <dimen name="fragment_shop_category_height">35dip</dimen>
     <dimen name="fragment_shop_category_head_img_height">13dip</dimen>
     <dimen name="fragment_shop_category_newest_item_height">90dip</dimen>
     <dimen name="fragment_shop_category_newest_item_width">140dip</dimen>

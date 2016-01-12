@@ -21,10 +21,9 @@ import android.widget.ListView;
 
 import com.base.tools.http.CallbackResultForActivity;
 import com.base.tools.utils.BasesUtils;
-import com.base.tools.utils.DisplayUtil;
 import com.oasgames.android.oaspay.R;
-import com.oasgames.android.oaspay.adapter.AdapterProdcutList;
 import com.oasgames.android.oaspay.adapter.AdapterShopNewestHotProductList;
+import com.oasgames.android.oaspay.entity.ProductInfo;
 import com.oasgames.android.oaspay.entity.ShopFocus;
 import com.oasgames.android.oaspay.entity.ShopList;
 import com.oasgames.android.oaspay.service.HttpService;
@@ -177,7 +176,17 @@ public class FragmentShop extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				if(BasesUtils.isFastDoubleClick())
 					return;
-				startActivity(new Intent().setClass(getActivity(), ActivityProductDetails.class).putExtra("id", newestAdapter.getItem(position).product_id));
+
+				ProductInfo p = newestAdapter.getItem(position);
+				if("payapp".equals(p.product_property)){// 套餐，跳转至套餐列表
+
+					if(BasesUtils.isLogin())
+						startActivity(new Intent().setClass(getActivity(), ActivityPayPackageList.class).putExtra("id", p.price_product_id));
+					else
+						startActivity(new Intent().setClass(getActivity(), ActivityLogin.class));
+				}else if("giftapp".equals(p.product_property)) {// 跳转至礼包列表
+					startActivity(new Intent().setClass(getActivity(), ActivityProductDetails.class).putExtra("id", p.product_id));
+				}
 			}
 		});
 	}
@@ -194,34 +203,44 @@ public class FragmentShop extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				if(BasesUtils.isFastDoubleClick())
 					return;
-				startActivity(new Intent().setClass(getActivity(), ActivityProductDetails.class).putExtra("id", hotestAdapter.getItem(position).product_id));
+				ProductInfo p = hotestAdapter.getItem(position);
+
+				if("payapp".equals(p.product_property)) {// 套餐，跳转至套餐列表
+					if(BasesUtils.isLogin())
+						startActivity(new Intent().setClass(getActivity(), ActivityPayPackageList.class).putExtra("id", p.price_product_id));
+					else
+						startActivity(new Intent().setClass(getActivity(), ActivityLogin.class));
+				}else if("giftapp".equals(p.product_property)) {// 跳转至礼包列表\
+					startActivity(new Intent().setClass(getActivity(), ActivityProductDetails.class).putExtra("id", p.product_id));
+				}
 			}
 		});
 	}
 	ListView browseListView;
 	private void initBrowser(){
-		if(shop == null || shop.browseList == null || shop.browseList.size() <= 0){
-			getActivity().findViewById(R.id.main_shop_review).setVisibility(View.GONE);
-
-			return;
-		}
-		browseListView = (ListView)getActivity().findViewById(R.id.fragment_shop_category_review_grid);
-		final AdapterProdcutList reviewAdapter = new AdapterProdcutList(getActivity(), shop.browseList, 1, null);
-		browseListView.setAdapter(reviewAdapter);
-		browseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				if(BasesUtils.isFastDoubleClick())
-					return;
-				startActivity(new Intent().setClass(getActivity(), ActivityProductDetails.class).putExtra("id", reviewAdapter.getItem(position).product_id));
-			}
-		});
-
-		ViewGroup.LayoutParams params = browseListView.getLayoutParams();
-		params.height = shop.browseList.size() * DisplayUtil.dip2px(78, BasesUtils.getDisplayMetrics(getActivity()).density) + (browseListView.getDividerHeight() * (reviewAdapter.getCount() - 1));
-		// listView.getDividerHeight()获取子项间分隔符占用的高度
-		// params.height最后得到整个ListView完整显示需要的高度
-		browseListView.setLayoutParams(params);
+		getActivity().findViewById(R.id.main_shop_review).setVisibility(View.GONE);
+//		if(shop == null || shop.browseList == null || shop.browseList.size() <= 0){
+//			getActivity().findViewById(R.id.main_shop_review).setVisibility(View.GONE);
+//
+//			return;
+//		}
+//		browseListView = (ListView)getActivity().findViewById(R.id.fragment_shop_category_review_grid);
+//		final AdapterProdcutList reviewAdapter = new AdapterProdcutList(getActivity(), shop.browseList, 1, null);
+//		browseListView.setAdapter(reviewAdapter);
+//		browseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//			@Override
+//			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//				if(BasesUtils.isFastDoubleClick())
+//					return;
+//				startActivity(new Intent().setClass(getActivity(), ActivityProductDetails.class).putExtra("id", reviewAdapter.getItem(position).product_id));
+//			}
+//		});
+//
+//		ViewGroup.LayoutParams params = browseListView.getLayoutParams();
+//		params.height = shop.browseList.size() * DisplayUtil.dip2px(78, BasesUtils.getDisplayMetrics(getActivity()).density) + (browseListView.getDividerHeight() * (reviewAdapter.getCount() - 1));
+//		// listView.getDividerHeight()获取子项间分隔符占用的高度
+//		// params.height最后得到整个ListView完整显示需要的高度
+//		browseListView.setLayoutParams(params);
 
 	}
 	private void initViewPager(){
