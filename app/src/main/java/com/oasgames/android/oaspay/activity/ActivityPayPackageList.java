@@ -206,6 +206,10 @@ public class ActivityPayPackageList extends BasesActivity {
         @Override
         public void fail(int statusCode, String msg) {
             setWaitScreen(false);
+            if(!TextUtils.isEmpty(msg) && "-24".equals(msg)){
+                APPUtils.showErrorMessageByErrorCode(ActivityPayPackageList.this, msg);//您的账号已被暂停充值服务
+                return;
+            }
             if(!isPageClose())
                 APPUtils.showErrorMessageByErrorCode(ActivityPayPackageList.this, "-2000");
         }

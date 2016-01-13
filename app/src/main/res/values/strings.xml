@@ -111,4 +111,5 @@
 
     <string name="fragment_shop_function_orther">كنا متطلعا</string>
     <string name="order_list_item_label12">هذا المنتج غير موجود حاليا !</string>
+    <string name="common_error_notice_24">تم إيقاف خدمة الشحن من الحساب الخاص بك مؤقتاً</string>
 </resources>

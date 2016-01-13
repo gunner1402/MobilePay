@@ -413,7 +413,16 @@ public class HttpService {
 			public void onResponse(String s) {
 				boolean flag = isSuccess("sendOrder", s, callback);
 				if (!flag) {
-					callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, "");
+					try {
+						JSONObject o = new JSONObject(s);
+						if(o.has("error")){
+							callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, ""+o.getInt("error"));
+						}else
+							callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, "");
+					} catch (JSONException e) {
+
+						callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, "");
+					}
 					return;
 				}
 
@@ -911,9 +920,9 @@ public class HttpService {
 			isScucess = false;
 		}
 		BasesUtils.logError(TAG, "请求源：" + methodName + "\n" + "响应结果" + result);
-		if(!isScucess) {
-			callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, result);
-		}
+//		if(!isScucess) {
+//			callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, result);
+//		}
 		return isScucess;
 	}
 
