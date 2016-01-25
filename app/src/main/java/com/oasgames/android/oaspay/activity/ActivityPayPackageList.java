@@ -210,6 +210,14 @@ public class ActivityPayPackageList extends BasesActivity {
                 APPUtils.showErrorMessageByErrorCode(ActivityPayPackageList.this, msg);//您的账号已被暂停充值服务
                 return;
             }
+            if(!TextUtils.isEmpty(msg) && "-25".equals(msg)){
+                APPUtils.showErrorMessageByErrorCode(ActivityPayPackageList.this, msg);//充值笔数达到上限
+                return;
+            }
+            if(!TextUtils.isEmpty(msg) && "-26".equals(msg)){
+                APPUtils.showErrorMessageByErrorCode(ActivityPayPackageList.this, msg);//充值总金额达到上限
+                return;
+            }
             if(!isPageClose())
                 APPUtils.showErrorMessageByErrorCode(ActivityPayPackageList.this, "-2000");
         }

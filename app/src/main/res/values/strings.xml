@@ -112,4 +112,6 @@
     <string name="fragment_shop_function_orther">كنا متطلعا</string>
     <string name="order_list_item_label12">هذا المنتج غير موجود حاليا !</string>
     <string name="common_error_notice_24">تم إيقاف خدمة الشحن من الحساب الخاص بك مؤقتاً</string>
+    <string name="common_error_notice_25">لقد وصل عدد بنود الشحن اليومي الخاص بحسابك إلى الحد الاقصى ، من اجل الحفاظ على الامآن الخاص بحسابك ، يرجى متابعة الشحن غذاً</string>
+    <string name="common_error_notice_26">لقد وصل مبلغ الشحن اليومي الخاص بحسابك إلى الحد الاقصى ، من اجل الحفاظ على الامآن الخاص بحسابك ، يرجى متابعة الشحن غذاً</string>
 </resources>
