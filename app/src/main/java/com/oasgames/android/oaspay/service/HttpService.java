@@ -738,6 +738,43 @@ public class HttpService {
 	}
 
 	/**
+	 * 提交服务器验证支付是否被允许
+	 * @throws BasesNetworkErrorException
+	 *
+	 */
+	public void checkPayAuth(String orderid, final CallbackResultForActivity callback) {
+
+		StringBuffer url = getUrl("a=Order&m=PayAuth");
+		url.append("&order_id="+orderid);
+		url.append("&sign="+MD5Encrypt.StringToMD5(MyApplication.userInfo.uid + orderid + MyApplication.PUBLICKEY));
+
+		new BasesDao().post(url.toString(), null, new Response.Listener<String>() {
+			@Override
+			public void onResponse(String s) {
+				BasesUtils.logError(TAG, "请求源：checkPayAuth" +  "\n" + "响应结果" + s);
+				try {
+					JSONObject o = new JSONObject(s);
+					if(!"ok".equalsIgnoreCase(o.getString("status"))){
+						callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, o.getString("error"));
+						return;
+					}
+
+				}catch (Exception e){
+					callback.fail(BasesConstant.RESULT_FAIL_DATAERROR, "");
+				}
+
+				callback.success(null, BasesConstant.RESULT_SUCCESS, "");
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError volleyError) {
+				callback.exception(new BasesNetworkErrorException(""));
+			}
+		});
+
+	}
+
+	/**
 	 * 获取第三方交易套餐
 	 * @throws BasesNetworkErrorException
 	 */

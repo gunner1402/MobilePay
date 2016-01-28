@@ -329,8 +329,7 @@ public class ActivityGooglePlayBilling extends BasesActivity {
 					return;
 				}
 
-				// 订单状态正常，且本地无该订单记录，开启新的支付流程
-				launchPurchaseFlow();
+				checkAuth();//检查玩家当前是否达到上限，未达到上限继续支付
 
 			}
 		});
@@ -564,6 +563,43 @@ public class ActivityGooglePlayBilling extends BasesActivity {
 			if(!isPageClose()) {
 				APPUtils.showErrorMessageByErrorCode(ActivityGooglePlayBilling.this, "-2000");
 			}
+			close();// 先暂时close，后续决定是否添加重试功能
+		}
+	}
+	/**
+	 * 服务器验证 权限
+	 */
+	private void checkAuth(){
+		setWaitScreen(true);
+		HttpService.instance().checkPayAuth(order.order_id, new CheckAuth());
+	}
+	class CheckAuth implements CallbackResultForActivity{
+		public CheckAuth(){
+		}
+		@Override
+		public void success(Object data, int statusCode, String msg) {
+			// 开始支付
+
+			// 订单状态正常，且本地无该订单记录，开启新的支付流程
+			launchPurchaseFlow();
+		}
+
+		@Override
+		public void fail(int statusCode, String msg) {
+			if(!TextUtils.isEmpty(msg) && "-25".equals(msg)){
+				BasesUtils.showMsg(ActivityGooglePlayBilling.this, getResources().getString(R.string.common_error_notice_25));//充值笔数达到上限
+			}else if(!TextUtils.isEmpty(msg) && "-26".equals(msg)){
+				BasesUtils.showMsg(ActivityGooglePlayBilling.this, getResources().getString(R.string.common_error_notice_26));//充值总金额达到上限
+
+			}else {
+				BasesUtils.showMsg(ActivityGooglePlayBilling.this, getResources().getString(R.string.google_error_notice8));// 支付失败，请稍候再试！
+			}
+			close();// 先暂时close，后续决定是否添加重试功能
+		}
+
+		@Override
+		public void exception(Exception e) {
+			BasesUtils.showMsg(ActivityGooglePlayBilling.this, getResources().getString(R.string.google_error_notice8));// 支付失败，请稍候再试！
 			close();// 先暂时close，后续决定是否添加重试功能
 		}
 	}

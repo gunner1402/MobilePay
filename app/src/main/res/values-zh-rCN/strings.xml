@@ -111,6 +111,7 @@
     <string name="fragment_shop_function_orther">敬请期待</string>
     <string name="order_list_item_label12">该产品已下线！</string>
     <string name="common_error_notice_24">您的账号已被暂停充值服务</string>
-    <string name="common_error_notice_25">您的充值笔数已超过当日的最大限额。为了您的账户安全，请您明天再继续充值。</string>
-    <string name="common_error_notice_26">您的充值金额已超过当日的最大限额。为了您的账户安全，请您明天再继续充值。</string>
+    <string name="common_error_notice_25">您的充值笔数或充值金额已超过当日的最大限额。为了您的账户安全，请您明天再继续充值。</string>
+    <string name="common_error_notice_26">您的充值笔数或充值金额已超过当日的最大限额。为了您的账户安全，请您明天再继续充值。</string>
+    <string name="google_error_notice8">支付失败，请稍候再试！</string>
 </resources>
